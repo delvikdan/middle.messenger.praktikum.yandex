@@ -1,0 +1,23 @@
+@use "../abstracts" as *;
+
+.login-box {
+  box-shadow: 0px 0px 6px 0px rgba($color-black, 0.14);
+  padding: 3rem;
+  border-radius: 12px;
+  width: 34rem;
+  display: flex;
+  flex-direction: column;
+
+  .heading-primary {
+    text-align: center;
+    margin: 2rem 0 3rem;
+  }
+
+  &--sign-in {
+    height: 45rem;
+  }
+
+  &--sign-up {
+    height: 61.5rem;
+  }
+}

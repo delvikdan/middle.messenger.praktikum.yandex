@@ -1,0 +1,30 @@
+@use "../abstracts" as *;
+
+.link {
+  color: $color-secondary;
+  transition: all 0.3s;
+  font-size: $medium-font-size;
+
+  &,
+  &:link,
+  &:visited {
+    text-decoration: none;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &--small {
+    margin-top: 14px;
+    font-size: 1.1rem;
+  }
+
+  &--grey {
+    color: $color-grey-dark-1;
+  }
+
+  &--red {
+    color: $color-tertiary;
+  }
+}

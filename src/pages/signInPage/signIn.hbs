@@ -1,0 +1,25 @@
+<main class="main">
+  <div class="login-box login-box--sign-in">
+    <h1 class="heading-primary">Вход</h1>
+    <form class="form" action="#">
+      <div class="form__fields">
+        {{> FormGroup
+          label="Логин"
+          nameAttr="login"
+          type="text"
+        }}
+        {{> FormGroup
+          label="Пароль"
+          nameAttr="password"
+          type="password"
+          error="Неверный пароль"
+        }}
+      </div>
+      <div class="form__submit">
+        {{> Button class="btn-text" text="Авторизоваться"}}
+        {{> Link class="link--small sign" href="#" text="Нет аккаунта?" data-page="signUp"}}
+      </div>
+    </form>
+  </div>
+</main>
+{{> Footer}}

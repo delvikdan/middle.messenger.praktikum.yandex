@@ -1,0 +1,19 @@
+@use "../abstracts" as *;
+
+.chat-input {
+  display: flex;
+  border-top: $separator;
+
+  padding-top: 1.1rem;
+
+  &__field {
+    flex: 1 1 auto;
+    background-color: $color-grey-light-2;
+    border-radius: 3rem;
+    padding: 1rem 2rem;
+
+    &::placeholder {
+      color: $color-grey-dark-1;
+    }
+  }
+}

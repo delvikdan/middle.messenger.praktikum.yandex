@@ -1,0 +1,37 @@
+<div class="page-wrapper">
+  <aside class="navigation-bar">
+    {{> Link href="#" title="Назад" class="navigation-bar__link btn-arrow" data-page="chat" text="назад" }}
+  </aside>
+
+{{!-- export default `<img class="avatar" src="{{avatar}}" alt="{{displayName}}">`; --}}
+
+  <main class="profile">
+    <section class="profile__header">
+      <div class="userpic">
+        {{#if userData.avatar}}{{> Avatar userData}}{{/if}}
+        {{> Input id="avatar-input" name="avatar" type="file" hidden=true }}
+        <label class="userpic__button" for="avatar-input"><span>Поменять аватар</span></label>
+      </div>
+      {{> DisplayName userData class="profile__name" }}
+    </section>
+
+    <section class="profile__info">
+      {{> UserInfo }}
+    </section>
+
+    <nav class="profile__actions actions">
+      <ul class="actions__list">
+        <li class="actions__item">
+          {{> Link href="#" data-page="changeProfile" text="Изменить данные"}}
+        </li>
+        <li class="actions__item">
+          {{> Link href="#" data-page="changePassword" text="Изменить пароль"}}
+        </li>
+        <li class="actions__item">
+          {{> Link href="#" data-page="signIn" text="Выйти" class="link--red"}}
+        </li>
+      </ul>
+    </nav>
+  </main>
+</div>
+{{> Footer}}
