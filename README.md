@@ -1,4 +1,4 @@
-# Приложение "ЧАТ"
+# Приложение "Icewind Chat"
 
 Одностраничное веб-приложение (SPA) для обмена сообщениями, созданное с использованием ES-модулей, шаблонизатора Handlebars и стилей на SCSS (Sass). Проект собирается с помощью Vite.
 
@@ -18,6 +18,6 @@ https://www.figma.com/design/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=0
 
 ## Ссылки:
 
-### На веб-приложение:
+### На веб-приложение:a
 
-Netlify:
+Netlify: https://icewind-chat.netlify.app/
