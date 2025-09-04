@@ -8,11 +8,13 @@
     <div class="chat-sidebar__search">
       {{>Input class="chat-sidebar__search-input" type="text" name="search" placeholder="Поиск"}}
     </div>
-    <ul class="chat-list">
-      {{#each chatListItems}}
-        {{> ChatListItem}}
-      {{/each}}
-    </ul>
+    <nav class="chat-sidebar__navigation">
+      <ul class="chat-list">
+        {{#each chatListItems}}
+          {{> ChatListItem}}
+        {{/each}}
+      </ul>
+    </nav>
   </aside>
   <main class="chat-main">
       {{> Header selectedChat }}
