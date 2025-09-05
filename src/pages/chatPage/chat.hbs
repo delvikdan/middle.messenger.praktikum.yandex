@@ -1,0 +1,36 @@
+<div class="chat page-wrapper">
+  <aside class="chat-sidebar">
+    <div class="chat-sidebar__header">
+      <div class="chat-sidebar__profile-menu">
+        {{>Link href="#" class="link-profile link--grey" data-page="profile" text="Профиль >"}}
+      </div>
+    </div>
+    <div class="chat-sidebar__search">
+      {{>Input class="chat-sidebar__search-input" type="text" name="search" placeholder="Поиск"}}
+    </div>
+    <nav class="chat-sidebar__navigation">
+      <ul class="chat-list">
+        {{#each chatListItems}}
+          {{> ChatListItem}}
+        {{/each}}
+      </ul>
+    </nav>
+  </aside>
+  <main class="chat-main">
+      {{> Header selectedChat }}
+    <section class="chat-history">
+      <div class="chat-history__period">
+        {{selectedChat.period}}
+      </div>
+      {{#each selectedChat.messages}}
+        {{> ChatMessage}}
+      {{/each}}
+    </section>
+    <form class="chat-input" autocomplete="off">
+      {{> Button text='<img src="/images/icon-attach.svg" alt=""/>' class="btn-attach" }}
+      {{> Input class="chat-input__field" type="text" name="message" placeholder="Сообщение" }}
+      {{> Button text='<img src="/images/icon-arrow-right.svg" alt=""/>' class="btn-arrow" }}
+    </form>
+  </main>
+</div>
+{{> Footer}}

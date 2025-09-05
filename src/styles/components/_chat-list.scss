@@ -1,0 +1,103 @@
+@use "../abstracts" as *;
+
+.chat-list {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-height: 0;
+
+  &__item {
+    position: relative;
+
+    &--selected {
+      background-color: $color-secondary-light;
+    }
+  }
+
+  &__link {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    min-height: 6.7rem;
+    margin: 0 1rem;
+    text-decoration: none;
+    white-space: nowrap;
+    outline: none;
+    border-bottom: $separator;
+
+    &:hover .chat-list__underlay {
+      z-index: 1;
+      background-color: rgba($color-secondary-light, 0.3);
+    }
+  }
+
+  &__underlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  &__pic,
+  &__content {
+    position: relative;
+    z-index: 3;
+  }
+
+  &__pic {
+    width: 4.7rem;
+    height: 4.7rem;
+    background-color: $color-grey-light-2;
+    border-radius: 50%;
+    margin-right: 1rem;
+  }
+
+  &__content {
+    flex: 1;
+    min-width: 0;
+  }
+  &__row + &__row {
+    margin-top: 0.4rem;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 0;
+  }
+  &__name,
+  &__latest {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &__latest,
+  &__date {
+    color: $color-grey-dark-1;
+  }
+
+  &__date {
+    font-size: $small-font-size;
+  }
+
+  &__unread {
+    flex-shrink: 0;
+    min-width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5625rem;
+    color: $color-white;
+    @include centered;
+
+    span {
+      background-color: $color-secondary;
+      color: $color-white;
+      display: inline-flex;
+      white-space: pre;
+      border-radius: 0.875rem;
+      padding: 0 0.4375rem;
+      font-size: 1.1rem;
+    }
+  }
+}

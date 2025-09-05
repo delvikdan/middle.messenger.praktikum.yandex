@@ -1,0 +1,36 @@
+@use "../abstracts" as *;
+
+.chat-main {
+  padding: 1rem 2rem;
+  flex: 1;
+  min-width: 0;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 1rem;
+    border-bottom: $separator;
+    flex-shrink: 0;
+  }
+
+  &__name {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__pic {
+    width: 3.4rem;
+    height: 3.4rem;
+    background-color: $color-grey-light-2;
+    margin-right: 1rem;
+    border-radius: 50%;
+  }
+
+  &__menu-btn {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+}
