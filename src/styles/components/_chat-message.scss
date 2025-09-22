@@ -5,27 +5,6 @@
   margin-bottom: 1rem;
   width: fit-content;
 
-  &--companion {
-    border-radius: $companion-message-radius;
-    border: 1px solid $color-grey-light-4;
-  }
-
-  &--companion &__content--text {
-    background-color: $color-grey-light-4;
-  }
-
-  &--own &__content--text {
-    background-color: $color-secondary-light;
-  }
-
-  &--companion &__meta {
-    color: $color-grey-dark-1;
-  }
-
-  &--own &__meta {
-    color: $color-secondary;
-  }
-
   &__content {
     position: relative;
     display: block;
@@ -46,10 +25,31 @@
     }
   }
 
+  &--companion {
+    border-radius: $companion-message-radius;
+    border: 1px solid $color-grey-light-4;
+  }
+
+  &--companion &__content--text {
+    background-color: $color-grey-light-4;
+  }
+
+  &--own &__content--text {
+    background-color: $color-secondary-light;
+  }
+
   &__meta {
     position: relative;
     font-size: $small-font-size;
     float: right;
+  }
+
+  &--companion &__meta {
+    color: $color-grey-dark-1;
+  }
+
+  &--own &__meta {
+    color: $color-secondary;
   }
 
   &__content--text &__meta {

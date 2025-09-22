@@ -1,18 +1,21 @@
 @use "../abstracts" as *;
 
-.form {
+.login-form {
   display: flex;
   flex-direction: column;
   height: 100%;
   justify-content: space-between;
 
-  &__group {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    font-size: $medium-font-size;
-    line-height: 1;
+  &__row {
     margin-bottom: 2rem;
+    line-height: 1;
+
+    div {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      font-size: $medium-font-size;
+    }
   }
 
   &__label {
@@ -46,7 +49,7 @@
 
   &__error {
     color: $color-tertiary;
-    font-size: 0.8rem;
+    font-size: 1rem;
     margin-bottom: 0;
   }
 
@@ -55,5 +58,51 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  font-size: $medium-font-size;
+  margin: 0;
+
+  &__row {
+    border-bottom: $separator;
+
+    div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 3.3rem;
+      flex-direction: row-reverse;
+    }
+
+    &:last-child {
+      margin-bottom: 5rem;
+      border-bottom: none;
+    }
+  }
+
+  &__input {
+    color: $color-grey-dark-1;
+    text-align: right;
+    margin: 0;
+    padding-right: 1px;
+  }
+
+  &__error {
+    color: $color-tertiary;
+    font-size: 1rem;
+    margin: 0 0 1rem;
+  }
+
+  input:focus {
+    color: $color-primary;
+  }
+
+  &__submit {
+    @include centered;
   }
 }
