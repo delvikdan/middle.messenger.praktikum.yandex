@@ -56,13 +56,23 @@ const formData = [
     validateValue: validatePhone,
     value: "+79099673030",
   },
+];
+
+const passwordFormData = [
   {
-    label: "Пароль",
-    id: "password",
+    label: "Старый пароль",
+    id: "oldPassword",
     typeAttr: "password",
-    nameAttr: "password",
+    nameAttr: "oldPassword",
     validateValue: validatePassword,
     value: "Qwerty123",
+  },
+  {
+    label: "Новый пароль",
+    id: "newPassword",
+    typeAttr: "password",
+    nameAttr: "newPassword",
+    validateValue: validatePassword,
   },
 ];
 
@@ -92,7 +102,8 @@ export class ProfilePage extends Block {
       ...props,
     });
     const actions: ProfileActions = new ProfileActions({
-      onEditClick: () => this.handleEditClick(),
+      onEditProfileClick: () => this.handleEditProfileClick(),
+      onChangePasswordClick: () => this.handleChangePasswordClick(),
     });
 
     const profileForm: Form = new Form({
@@ -103,20 +114,35 @@ export class ProfilePage extends Block {
       },
     });
 
+    const passwordForm: Form = new Form({
+      className: "profile-form",
+      formRowsData: passwordFormData,
+      buttonData: {
+        text: "Сохранить",
+      },
+    });
+
     super({
-      editing: false,
+      formMode: "none",
       returnLink,
       avatarInput,
       displayNameComponent,
       actions,
       userInfo,
       profileForm,
+      passwordForm,
     });
   }
 
-  handleEditClick = (): void => {
+  handleEditProfileClick = (): void => {
     this.setProps({
-      editing: true,
+      formMode: "profile",
+    });
+  };
+
+  handleChangePasswordClick = (): void => {
+    this.setProps({
+      formMode: "password",
     });
   };
 
@@ -133,18 +159,20 @@ export class ProfilePage extends Block {
           </section>
 
           <section class="profile__container">
-            {{#if editing}}
+            {{#if (eq formMode "profile")}}
               {{{profileForm}}}
+            {{else if (eq formMode "password")}}
+              {{{passwordForm}}}
             {{else}}
               {{{userInfo}}}
             {{/if}}
           </section>
 
-          {{#unless editing}}
+          {{#if (eq formMode "none")}}
             <nav class="profile__actions">
               {{{actions}}}
             </nav>
-          {{/unless}}
+          {{/if}}
         </main>
       </div>`;
   }

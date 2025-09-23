@@ -29,6 +29,8 @@ export default class Block {
 
   protected lists: BlockLists;
 
+  protected events: BlockEvents = {};
+
   protected eventBus: () => EventBus;
 
   constructor(propsWithChildren: BlockProps = {}) {
@@ -203,11 +205,21 @@ export default class Block {
 
     const newElement = fragment.content.firstElementChild as HTMLElement;
     if (this._element && newElement) {
+      this._removeEvents();
       this._element.replaceWith(newElement);
     }
     this._element = newElement;
     this._addEvents();
     this.addAttributes();
+  }
+
+  private _removeEvents() {
+    if (!this._element) {
+      throw new Error("Element is not created");
+    }
+    Object.keys(this.events).forEach((eventName) => {
+      this._element!.removeEventListener(eventName, this.events[eventName]);
+    });
   }
 
   protected render(): string {

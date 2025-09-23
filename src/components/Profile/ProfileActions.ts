@@ -2,15 +2,22 @@ import Block from "@/framework/Block";
 import { Link } from "@/components/Link";
 
 type ProfileActionsProps = {
-  onEditClick: () => void;
+  onEditProfileClick: () => void;
+  onChangePasswordClick: () => void;
 };
 
 export class ProfileActions extends Block {
   constructor(props: ProfileActionsProps) {
-    const changeProfileLink: Link = new Link({
+    const editProfileLink: Link = new Link({
       href: "#",
       text: "Изменить данные",
-      className: "link actions__link--edit",
+      className: "link actions__link--profile",
+    });
+
+    const changePasswordLink: Link = new Link({
+      href: "#",
+      text: "Изменить пароль",
+      className: "link actions__link--password",
     });
 
     const signOutLink: Link = new Link({
@@ -22,14 +29,19 @@ export class ProfileActions extends Block {
 
     super({
       ...props,
-      changeProfileLink,
+      editProfileLink,
+      changePasswordLink,
       signOutLink,
       events: {
-        click: (event: MouseEvent) => {
+        click: (event: MouseEvent): void => {
           const target = event.target as HTMLElement;
-          if (target.matches(".actions__link--edit")) {
+          if (target.matches(".actions__link--profile")) {
             event.preventDefault();
-            props.onEditClick();
+            props.onEditProfileClick();
+          }
+          if (target.matches(".actions__link--password")) {
+            event.preventDefault();
+            props.onChangePasswordClick();
           }
         },
       },
@@ -40,7 +52,10 @@ export class ProfileActions extends Block {
     return `
       <ul class="actions">
         <li class="actions__item">
-          {{{changeProfileLink}}}
+          {{{editProfileLink}}}
+        </li>
+        <li class="actions__item">
+          {{{changePasswordLink}}}
         </li>
         <li class="actions__item">
           {{{signOutLink}}}

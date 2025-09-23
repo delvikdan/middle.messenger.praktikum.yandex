@@ -22,7 +22,7 @@ export class Button extends Block {
 
   override render(): string {
     return `
-      <button type="button" class="btn {{className}}"{{#if disabled}} disabled{{/if}}>
+      <button type="{{typeAttr}}" class="btn {{className}}"{{#if disabled}} disabled{{/if}}>
         {{{text}}}
       </button>`;
   }

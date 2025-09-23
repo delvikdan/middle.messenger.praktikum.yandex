@@ -85,6 +85,10 @@
     }
   }
 
+  &__label {
+    cursor: pointer;
+  }
+
   &__input {
     color: $color-grey-dark-1;
     text-align: right;
