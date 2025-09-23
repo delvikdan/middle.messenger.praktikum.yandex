@@ -11,9 +11,14 @@
     background-color: $color-grey-light-2;
     border-radius: 3rem;
     padding: 1rem 2rem;
+    border: 1px solid transparent;
 
     &::placeholder {
       color: $color-grey-dark-1;
+    }
+
+    &--red {
+      border: 1px solid $color-tertiary;
     }
   }
 }

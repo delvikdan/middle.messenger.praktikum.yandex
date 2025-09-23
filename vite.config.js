@@ -1,7 +1,12 @@
 import { defineConfig } from "vite";
-import { resolve } from "path";
+import path, { resolve } from "path";
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "src"),
+    },
+  },
   build: {
     rollupOptions: {
       input: {

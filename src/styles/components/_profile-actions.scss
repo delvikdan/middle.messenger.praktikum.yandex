@@ -1,0 +1,11 @@
+@use "../abstracts" as *;
+
+.actions {
+  &__item {
+    padding: 1rem 0;
+
+    &:not(:last-child) {
+      border-bottom: $separator;
+    }
+  }
+}

@@ -1,11 +1,7 @@
-//base
 @use "base/base";
 @use "base/typography";
 
-//components
 @use "components/button";
-@use "components/form";
-@use "components/login-box";
 @use "components/link";
 @use "components/avatar";
 @use "components/chat-sidebar";
@@ -14,12 +10,13 @@
 @use "components/chat-history";
 @use "components/chat-message";
 @use "components/chat-input";
-@use "components/navigation-bar";
-@use "components/user-info";
+@use "components/form";
+@use "components/profile-avatar-input";
+@use "components/profile-info";
+@use "components/profile-actions";
+@use "components/footer";
 
-@use "pages/chat";
-@use "pages/profile";
-@use "pages/error";
-
-//layout
-@use "layout/footer";
+@use "pages/sign-page";
+@use "pages/chat-page";
+@use "pages/profile-page";
+@use "pages/error-page";

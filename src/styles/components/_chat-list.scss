@@ -13,6 +13,14 @@
     }
   }
 
+  &__underlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
   &__link {
     overflow: hidden;
     display: flex;
@@ -28,14 +36,6 @@
       z-index: 1;
       background-color: rgba($color-secondary-light, 0.3);
     }
-  }
-
-  &__underlay {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
   }
 
   &__pic,
@@ -56,9 +56,6 @@
     flex: 1;
     min-width: 0;
   }
-  &__row + &__row {
-    margin-top: 0.4rem;
-  }
 
   &__row {
     display: flex;
@@ -66,6 +63,11 @@
     justify-content: space-between;
     min-width: 0;
   }
+
+  &__row + &__row {
+    margin-top: 0.4rem;
+  }
+
   &__name,
   &__latest {
     overflow: hidden;

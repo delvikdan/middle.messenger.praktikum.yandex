@@ -1,0 +1,35 @@
+@use "../abstracts" as *;
+
+.userpic {
+  position: relative;
+  width: 13rem;
+  height: 13rem;
+  margin-bottom: 2.1rem;
+  background: url(/images/image-placeholder.svg) $color-grey-light-2 no-repeat
+    center;
+  border-radius: 50%;
+
+  &__button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border-radius: inherit;
+    background: rgba($color-black, 0.5);
+    transition: opacity 0.2s;
+    z-index: 2;
+    color: $color-white;
+    font-size: $medium-font-size;
+    @include centered;
+    padding: 0 3.3rem;
+    text-align: center;
+    line-height: 1.4rem;
+    opacity: 0;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
