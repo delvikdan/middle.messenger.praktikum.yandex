@@ -84,7 +84,7 @@ export class ProfilePage extends Block {
       href: "#",
       text: "назад",
       className: "link navigation-bar__link btn-arrow",
-      datapage: "chat",
+      datapage: "profile",
     });
     const avatarInput: ProfileAvatarInput = new ProfileAvatarInput({
       avatar,

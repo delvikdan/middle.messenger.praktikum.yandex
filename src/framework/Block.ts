@@ -11,13 +11,13 @@ export type BlockProps = {
   [key: string]: unknown;
 };
 
-export default class Block {
+export default abstract class Block {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
     FLOW_CDU: "flow:component-did-update",
     FLOW_RENDER: "flow:render",
-  };
+  } as const;
 
   protected _element: HTMLElement | null = null;
 
@@ -28,8 +28,6 @@ export default class Block {
   protected children: Record<string, Block>;
 
   protected lists: BlockLists;
-
-  protected events: BlockEvents = {};
 
   protected eventBus: () => EventBus;
 
@@ -205,21 +203,11 @@ export default class Block {
 
     const newElement = fragment.content.firstElementChild as HTMLElement;
     if (this._element && newElement) {
-      this._removeEvents();
       this._element.replaceWith(newElement);
     }
     this._element = newElement;
     this._addEvents();
     this.addAttributes();
-  }
-
-  private _removeEvents() {
-    if (!this._element) {
-      throw new Error("Element is not created");
-    }
-    Object.keys(this.events).forEach((eventName) => {
-      this._element!.removeEventListener(eventName, this.events[eventName]);
-    });
   }
 
   protected render(): string {

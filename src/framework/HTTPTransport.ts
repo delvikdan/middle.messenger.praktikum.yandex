@@ -38,44 +38,27 @@ function queryStringify(data: RequestData): string {
 
 export class HTTPTransport {
   get = (url: string, options: RequestOptions = {}) => {
-    return this.request(
-      url,
-      { ...options, method: METHOD.GET },
-      options.timeout
-    );
+    return this.request(url, { ...options, method: METHOD.GET });
   };
 
   post = (url: string, options: RequestOptions = {}) => {
-    return this.request(
-      url,
-      { ...options, method: METHOD.POST },
-      options.timeout
-    );
+    return this.request(url, { ...options, method: METHOD.POST });
   };
 
   put = (url: string, options: RequestOptions = {}) => {
-    return this.request(
-      url,
-      { ...options, method: METHOD.PUT },
-      options.timeout
-    );
+    return this.request(url, { ...options, method: METHOD.PUT });
   };
 
   delete = (url: string, options: RequestOptions = {}) => {
-    return this.request(
-      url,
-      { ...options, method: METHOD.DELETE },
-      options.timeout
-    );
+    return this.request(url, { ...options, method: METHOD.DELETE });
   };
 
-  request = (url: string, options: RequestOptions, timeout = 5000) => {
-    const { method, headers = {}, data } = options;
+  request = (url: string, options: RequestOptions) => {
+    const { method, headers = {}, data, timeout = 5000 } = options;
 
     if (!method) {
       throw new Error("no method");
     }
-
     const urlForOpen =
       method === METHOD.GET && data
         ? url + queryStringify(data as Record<string, unknown>)
