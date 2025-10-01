@@ -6,13 +6,13 @@ export type ErrorPageProps = {
 };
 
 export class ErrorPage extends Block {
-  constructor(props: ErrorPageProps) {
+  constructor(props: ErrorPageProps = { code: "404" }) {
     const error: Error = new Error({
       code: props.code,
       status: "Мы уже фиксим",
-      href: "#",
+      href: "/messenger",
       text: "Назад к чатам",
-      datapage: "chat",
+      isRouterLink: true,
     });
     super({ ...props, error });
   }

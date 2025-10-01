@@ -8,7 +8,7 @@ export type LinkProps = {
   isActive?: boolean;
   title?: string;
   key?: string;
-  datapage?: string;
+  isRouterLink?: boolean;
 };
 
 export class Link extends Block {
@@ -26,7 +26,7 @@ export class Link extends Block {
 
   override render(): string {
     return `
-      <a href="{{href}}" title="{{title}}" class="{{class}}" data-page="{{datapage}}">
+      <a href="{{href}}" title="{{title}}" class="{{class}}" {{#if isRouterLink}}data-router-link{{/if}}>
         {{text}}
       </a>`;
   }

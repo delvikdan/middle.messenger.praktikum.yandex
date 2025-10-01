@@ -7,9 +7,9 @@ export class ChatSidebar extends Block {
   constructor() {
     const link: Link = new Link({
       text: "Профиль",
-      href: "#",
+      href: "/settings",
+      isRouterLink: true,
       className: "link link-profile link--grey",
-      datapage: "profile",
     });
 
     const searhInput: Input = new Input({

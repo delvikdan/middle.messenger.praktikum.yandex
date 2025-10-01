@@ -80,12 +80,21 @@ export class ProfilePage extends Block {
   constructor(props = mockUserData) {
     const { avatar, displayName }: { avatar: string; displayName: string } =
       props;
-    const returnLink: Link = new Link({
-      href: "#",
+
+    const returnToChat: Link = new Link({
+      href: "/messenger",
       text: "назад",
       className: "link navigation-bar__link btn-arrow",
-      datapage: "profile",
+      isRouterLink: true,
     });
+
+    const returnToProfile: Link = new Link({
+      href: "/settings",
+      text: "назад",
+      className: "link navigation-bar__link btn-arrow",
+      isRouterLink: true,
+    });
+
     const avatarInput: ProfileAvatarInput = new ProfileAvatarInput({
       avatar,
       displayName,
@@ -124,7 +133,8 @@ export class ProfilePage extends Block {
 
     super({
       formMode: "none",
-      returnLink,
+      returnToProfile,
+      returnToChat,
       avatarInput,
       displayNameComponent,
       actions,
@@ -150,7 +160,11 @@ export class ProfilePage extends Block {
     return `
       <div class="page-wrapper">
         <aside class="navigation-bar">
-          {{{returnLink}}}
+        {{#if (eq formMode "none")}}
+          {{{returnToChat}}}
+        {{else}}
+          {{{returnToProfile}}}
+        {{/if}}
         </aside>
         <main class="profile">
           <section class="profile__header">

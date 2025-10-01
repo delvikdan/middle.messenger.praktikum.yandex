@@ -21,10 +21,10 @@ export class ProfileActions extends Block {
     });
 
     const signOutLink: Link = new Link({
-      href: "#",
-      datapage: "signIn",
+      href: "/",
       text: "Выйти",
       className: "link link--red",
+      isRouterLink: true,
     });
 
     super({

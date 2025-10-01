@@ -32,9 +32,9 @@ export class SignInPage extends Block {
 
     const link: Link = new Link({
       text: "Нет аккаунта?",
-      href: "#",
-      datapage: "signUp",
+      href: "/sign-up",
       className: "link link--small",
+      isRouterLink: true,
     });
 
     super({ form, link });
