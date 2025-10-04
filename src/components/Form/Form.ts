@@ -6,9 +6,17 @@ export type FormProps = {
   className: string;
   formRowsData: FormRowProps[];
   buttonData: ButtonProps;
+  onSubmit?: (data: Record<string, string>) => void;
 };
 
-export class Form extends Block {
+type FormBlockProps = {
+  formClass: string;
+  formRows: FormRow[];
+  button: Button;
+  onSubmit?: (data: Record<string, string>) => void;
+};
+
+export class Form extends Block<FormBlockProps> {
   formRows: FormRow[];
 
   constructor(props: FormProps) {
@@ -21,7 +29,7 @@ export class Form extends Block {
     const button: Button = new Button({
       ...buttonData,
       className: "btn-text",
-      typeAttr: "sumbit",
+      typeAttr: "submit",
       onClick: (event) => {
         event.preventDefault();
         event.stopPropagation();
@@ -31,7 +39,7 @@ export class Form extends Block {
 
     const formClass: string = props.className;
 
-    super({ formClass, formRows, button });
+    super({ formClass, formRows, button, onSubmit: props.onSubmit });
     this.formRows = formRows;
   }
 
@@ -47,7 +55,10 @@ export class Form extends Block {
       this.formRows.forEach((row: FormRow) => {
         data[row.key] = row.input.getValue();
       });
-      console.log("[VALIDATED FORM VALUES]", data);
+      // console.log("[VALIDATED FORM VALUES]", data);
+      if (this.props.onSubmit) {
+        this.props.onSubmit(data);
+      }
     }
   }
 
