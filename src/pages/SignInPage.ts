@@ -1,7 +1,9 @@
 import Block from "@/framework/Block";
-import { validateLogin, validatePassword } from "@/helpers/validation";
+// import { validateLogin, validatePassword } from "@/helpers/validation";
 import { Form } from "@/components/Form/Form";
 import { Link } from "@/components/Link";
+import { signin } from "@/api/auth";
+import { router } from "@/router";
 
 const formData = [
   {
@@ -9,14 +11,12 @@ const formData = [
     id: "login",
     typeAttr: "text",
     nameAttr: "login",
-    validateValue: validateLogin,
   },
   {
     label: "Пароль",
     id: "password",
     typeAttr: "password",
     nameAttr: "password",
-    validateValue: validatePassword,
   },
 ];
 
@@ -28,6 +28,25 @@ export class SignInPage extends Block {
       buttonData: {
         text: "Авторизоваться",
       },
+      onSubmit: (data: { login: string; password: string }) => {
+        console.log("Данные формы авторизации:", data);
+        signin(data)
+          .then((result) => {
+            if (result.status === 200) {
+              router.go("/messenger");
+            } else if (result.status === 401) {
+              form.setProps({ onSubmitError: "Неверный логин или пароль" });
+            } else {
+              form.setProps({
+                onSubmitError: "Ошибка авторизации",
+              });
+            }
+          })
+          .catch((e) => {
+            this.setProps({ onSubmitError: "Ошибка сети" });
+            console.error("Ошибка signin:", e);
+          });
+      },
     });
 
     const link: Link = new Link({
@@ -37,7 +56,7 @@ export class SignInPage extends Block {
       isRouterLink: true,
     });
 
-    super({ form, link });
+    super({ form, link, onSubmitError: "" });
   }
 
   override render(): string {

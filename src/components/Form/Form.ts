@@ -7,6 +7,7 @@ export type FormProps = {
   formRowsData: FormRowProps[];
   buttonData: ButtonProps;
   onSubmit?: (data: Record<string, string>) => void;
+  onSubmitError?: string;
 };
 
 type FormBlockProps = {
@@ -14,6 +15,7 @@ type FormBlockProps = {
   formRows: FormRow[];
   button: Button;
   onSubmit?: (data: Record<string, string>) => void;
+  onSubmitError?: string;
 };
 
 export class Form extends Block<FormBlockProps> {
@@ -39,7 +41,13 @@ export class Form extends Block<FormBlockProps> {
 
     const formClass: string = props.className;
 
-    super({ formClass, formRows, button, onSubmit: props.onSubmit });
+    super({
+      formClass,
+      formRows,
+      button,
+      onSubmit: props.onSubmit,
+      onSubmitError: props.onSubmitError ?? "",
+    });
     this.formRows = formRows;
   }
 
@@ -55,7 +63,7 @@ export class Form extends Block<FormBlockProps> {
       this.formRows.forEach((row: FormRow) => {
         data[row.key] = row.input.getValue();
       });
-      // console.log("[VALIDATED FORM VALUES]", data);
+      console.log("[VALIDATED FORM VALUES]", data);
       if (this.props.onSubmit) {
         this.props.onSubmit(data);
       }
@@ -69,6 +77,7 @@ export class Form extends Block<FormBlockProps> {
           {{{formRows}}}
         </div>
         <div class="{{formClass}}__submit">
+          {{#if onSubmitError}}<div class="{{formClass}}__submit-error">{{onSubmitError}}</div>{{/if}}
           {{{button}}}
         </div>
       </form>`;
