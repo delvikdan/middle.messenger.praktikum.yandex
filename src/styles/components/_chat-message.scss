@@ -1,0 +1,84 @@
+@use "../abstracts" as *;
+
+.chat-message {
+  max-width: 40rem;
+  margin-bottom: 1rem;
+  width: fit-content;
+
+  &__content {
+    position: relative;
+    display: block;
+    border-radius: inherit;
+
+    &--text {
+      padding: 1.1rem;
+      overflow: clip;
+      line-height: 1.5rem;
+      overflow-wrap: anywhere;
+    }
+
+    &--image img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+    }
+  }
+
+  &--companion {
+    border-radius: $companion-message-radius;
+    border: 1px solid $color-grey-light-4;
+  }
+
+  &--companion &__content--text {
+    background-color: $color-grey-light-4;
+  }
+
+  &--own &__content--text {
+    background-color: $color-secondary-light;
+  }
+
+  &__meta {
+    position: relative;
+    font-size: $small-font-size;
+    float: right;
+  }
+
+  &--companion &__meta {
+    color: $color-grey-dark-1;
+  }
+
+  &--own &__meta {
+    color: $color-secondary;
+  }
+
+  &__content--text &__meta {
+    background-color: inherit;
+    top: 0.8rem;
+    margin-left: 1.5rem;
+  }
+
+  &__content--image &__meta {
+    color: $color-white;
+    background-color: $color-grey-dark-2;
+    padding: 0.2rem 0.7rem;
+    border-radius: 0.875rem;
+    position: absolute;
+    right: 1.1rem;
+    bottom: 1.1rem;
+  }
+
+  &--own {
+    align-self: flex-end;
+    border-radius: $own-message-radius;
+  }
+
+  &__status {
+    &--read {
+      display: inline-block;
+      width: 0.9rem;
+      height: 0.4rem;
+      background-image: url(/images/icon-status-read.svg);
+    }
+  }
+}

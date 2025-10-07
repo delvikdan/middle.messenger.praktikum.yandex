@@ -1,0 +1,8 @@
+.chat {
+  &-sidebar,
+  &-main {
+    height: calc(100vh - 7rem);
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,117 @@
+@use "../abstracts" as *;
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+
+  &__row {
+    margin-bottom: 2rem;
+    line-height: 1;
+
+    div {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      font-size: $medium-font-size;
+    }
+  }
+
+  &__label {
+    position: absolute;
+    left: 0;
+    top: 1rem;
+    color: #999;
+    font-size: $medium-font-size;
+    pointer-events: none;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s;
+    transform-origin: left top;
+    transform: none;
+  }
+
+  &__input {
+    border-bottom: 1px solid $color-secondary;
+    padding: 0.7rem 0;
+
+    &:focus {
+      border-bottom: 1px solid $color-secondary-dark;
+    }
+
+    &:focus,
+    &:not(:placeholder-shown),
+    &:-webkit-autofill {
+      & + label {
+        transform: translateY(-1.8rem) scale(0.8);
+      }
+    }
+  }
+
+  &__error {
+    color: $color-tertiary;
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+
+  &__submit {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__submit-error {
+    padding: 1rem 0;
+    color: $color-tertiary;
+  }
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  font-size: $medium-font-size;
+  margin: 0;
+
+  &__row {
+    border-bottom: $separator;
+
+    div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 3.2rem;
+      flex-direction: row-reverse;
+    }
+
+    &:last-child {
+      margin-bottom: 5rem;
+      border-bottom: none;
+    }
+  }
+
+  &__label {
+    cursor: pointer;
+  }
+
+  &__input {
+    color: $color-grey-dark-1;
+    text-align: right;
+    margin: 0;
+    padding-right: 1px;
+  }
+
+  &__error {
+    color: $color-tertiary;
+    font-size: 1rem;
+    margin: 0 0 1rem;
+  }
+
+  input:focus {
+    color: $color-primary;
+  }
+
+  &__submit {
+    @include centered;
+  }
+}

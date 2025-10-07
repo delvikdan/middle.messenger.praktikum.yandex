@@ -1,0 +1,33 @@
+@use "../abstracts" as *;
+
+.chat-sidebar {
+  max-width: 31rem;
+  background-color: $color-grey-light-3;
+
+  &__header {
+    padding: 2.1rem 1rem 2.3rem;
+  }
+
+  &__profile-menu {
+    text-align: right;
+  }
+
+  &__search {
+    margin: 0 1rem;
+    padding-bottom: 1.4rem;
+    border-bottom: $separator;
+  }
+
+  &__search-input {
+    width: 100%;
+    background-color: $color-grey-light-2;
+    padding: 0.85rem;
+    font-size: $default-font-size;
+    border-radius: 0.5rem;
+
+    &::placeholder {
+      color: $color-grey-dark-1;
+      text-align: center;
+    }
+  }
+}
