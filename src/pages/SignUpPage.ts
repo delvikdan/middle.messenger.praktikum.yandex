@@ -6,8 +6,11 @@ import {
   validateEmail,
   validatePhone,
 } from "@/helpers/validation";
+import { signup, UserData } from "@/api/auth";
 import { Form } from "@/components/Form/Form";
 import { Link } from "@/components/Link";
+import { router } from "@/router";
+import { LoggedInStore } from "@/store/loggedIn";
 
 const formData = [
   {
@@ -61,6 +64,24 @@ export class SignUpPage extends Block {
       formRowsData: formData,
       buttonData: {
         text: "Зарегистрироваться",
+      },
+      onSubmit: (data: UserData) => {
+        console.log("Данные формы авторизации:", data);
+        signup(data)
+          .then((result) => {
+            if (result.status === 200) {
+              LoggedInStore.setLoggedIn(true);
+              router.go("/messenger");
+            } else {
+              form.setProps({
+                onSubmitError: result.reason,
+              });
+            }
+          })
+          .catch((e) => {
+            this.setProps({ onSubmitError: "Ошибка сети" });
+            console.error("Ошибка signin:", e);
+          });
       },
     });
 

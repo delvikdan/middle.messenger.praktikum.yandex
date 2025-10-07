@@ -11,7 +11,7 @@ export type BlockProps = {
   [key: string]: unknown;
 };
 
-export default abstract class Block {
+export default abstract class Block<Props extends BlockProps = BlockProps> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -23,7 +23,7 @@ export default abstract class Block {
 
   protected _id: number = Math.floor(100000 + Math.random() * 900000);
 
-  protected props: BlockProps;
+  protected props: Props;
 
   protected children: Record<string, Block>;
 
@@ -31,11 +31,11 @@ export default abstract class Block {
 
   protected eventBus: () => EventBus;
 
-  constructor(propsWithChildren: BlockProps = {}) {
+  constructor(propsWithChildren: Props = {} as Props) {
     const eventBus = new EventBus();
     const { props, children, lists } =
       this._getChildrenPropsAndProps(propsWithChildren);
-    this.props = this._makePropsProxy({ ...props });
+    this.props = this._makePropsProxy<Props>({ ...props });
     this.children = children;
     this.lists = this._makePropsProxy({ ...lists });
     this.eventBus = () => eventBus;
@@ -85,10 +85,7 @@ export default abstract class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  private _componentDidUpdate(
-    oldProps: BlockProps,
-    newProps: BlockProps
-  ): void {
+  private _componentDidUpdate(oldProps: Props, newProps: Props): void {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (!response) {
       return;
@@ -96,35 +93,34 @@ export default abstract class Block {
     this._render();
   }
 
-  protected componentDidUpdate(
-    _oldProps: BlockProps,
-    _newProps: BlockProps
-  ): boolean {
+  protected componentDidUpdate(_oldProps: Props, _newProps: Props): boolean {
     void _oldProps;
     void _newProps;
     return true;
   }
 
-  private _getChildrenPropsAndProps(propsAndChildren: BlockProps): {
+  private _getChildrenPropsAndProps(propsAndChildren: Props): {
     children: Record<string, Block>;
-    props: BlockProps;
+    props: Props;
     lists: BlockLists;
   } {
     const children: Record<string, Block> = {};
-    const props: BlockProps = {};
+    const props: Record<string, unknown> = {};
     const lists: BlockLists = {};
 
-    Object.entries(propsAndChildren).forEach(([key, value]) => {
-      if (value instanceof Block) {
-        children[key] = value;
-      } else if (Array.isArray(value)) {
-        lists[key] = value;
-      } else {
-        props[key] = value;
+    Object.entries(propsAndChildren as Record<string, unknown>).forEach(
+      ([key, value]) => {
+        if (value instanceof Block) {
+          children[key] = value;
+        } else if (Array.isArray(value)) {
+          lists[key] = value;
+        } else {
+          props[key] = value;
+        }
       }
-    });
+    );
 
-    return { children, props, lists };
+    return { children, props: props as Props, lists };
   }
 
   protected addAttributes(): void {
@@ -145,7 +141,7 @@ export default abstract class Block {
     });
   }
 
-  public setProps = (nextProps: BlockProps): void => {
+  public setProps = (nextProps: Partial<Props>): void => {
     if (!nextProps) {
       return;
     }
@@ -166,7 +162,7 @@ export default abstract class Block {
   }
 
   private _render(): void {
-    const propsAndStubs = { ...this.props };
+    const propsAndStubs: BlockProps = { ...(this.props as BlockProps) };
     const tmpId = Math.floor(100000 + Math.random() * 900000);
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="${child._id}"></div>`;

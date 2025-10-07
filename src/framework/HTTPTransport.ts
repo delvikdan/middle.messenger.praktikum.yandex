@@ -9,6 +9,7 @@ type RequestOptions = {
   headers?: Record<string, string>;
   method?: METHOD;
   timeout?: number;
+  withCredentials?: boolean;
   data?:
     | Record<string, unknown>
     | Document
@@ -70,6 +71,8 @@ export class HTTPTransport {
       xhr.open(method, urlForOpen);
 
       xhr.timeout = timeout;
+
+      xhr.withCredentials = true;
 
       xhr.onload = function () {
         resolve(xhr);

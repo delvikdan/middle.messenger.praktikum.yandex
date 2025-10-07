@@ -1,4 +1,5 @@
 import Block from "@/framework/Block";
+import { LoggedInStore } from "@/store/loggedIn";
 
 type BlockClass<T extends Block = Block> = new () => T;
 
@@ -91,6 +92,12 @@ export class Router {
   }
 
   private _onRoute(pathname: string) {
+    const publicPaths = ["/", "/sign-up", "/404"];
+    if (!LoggedInStore.isLoggedIn && !publicPaths.includes(pathname)) {
+      this.go("/");
+      return;
+    }
+
     const route = this.getRoute(pathname);
     if (!route) {
       const notFoundRoute = this.getRoute("/404");

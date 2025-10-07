@@ -1,22 +1,23 @@
 import "@/styles/main.scss";
 import "@/helpers/handlebarsHelpers";
-
-import {
-  SignInPage,
-  SignUpPage,
-  ProfilePage,
-  ChatPage,
-  ErrorPage,
-} from "@/pages";
-import { Router } from "@/framework/Router";
+import { router } from "@/router";
+import { getUser } from "@/api/auth";
+import { LoggedInStore } from "./store/loggedIn";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const router = new Router("#app");
-  router
-    .use("/", SignInPage)
-    .use("/sign-up", SignUpPage)
-    .use("/settings", ProfilePage)
-    .use("/messenger", ChatPage)
-    .use("/404", ErrorPage)
-    .start();
+  getUser()
+    .then((user) => {
+      const isAuth = user && typeof user === "object" && "id" in user;
+      LoggedInStore.setLoggedIn(isAuth);
+      router.start();
+
+      // Если юзер уже авторизован, можно сразу отправить на messenger
+      if (isAuth && window.location.pathname === "/") {
+        router.go("/messenger");
+      }
+    })
+    .catch(() => {
+      LoggedInStore.setLoggedIn(false);
+      router.start();
+    });
 });
