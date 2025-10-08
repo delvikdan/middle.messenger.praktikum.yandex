@@ -92,11 +92,11 @@ export class Router {
   }
 
   private _onRoute(pathname: string) {
-    const publicPaths = ["/", "/sign-up", "/404"];
-    if (!LoggedInStore.isLoggedIn && !publicPaths.includes(pathname)) {
-      this.go("/");
-      return;
-    }
+    // const publicPaths = ["/", "/sign-up", "/404"];
+    // if (!LoggedInStore.isLoggedIn && !publicPaths.includes(pathname)) {
+    //   this.go("/");
+    //   return;
+    // }
 
     const route = this.getRoute(pathname);
     if (!route) {

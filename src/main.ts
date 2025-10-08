@@ -1,23 +1,25 @@
 import "@/styles/main.scss";
 import "@/helpers/handlebarsHelpers";
 import { router } from "@/router";
-import { getUser } from "@/api/auth";
-import { LoggedInStore } from "./store/loggedIn";
+import store from "@/store";
+import UserController from "@/controllers/UserController"; // должен уметь класть user в store
 
 document.addEventListener("DOMContentLoaded", () => {
-  getUser()
-    .then((user) => {
-      const isAuth = user && typeof user === "object" && "id" in user;
-      LoggedInStore.setLoggedIn(isAuth);
-      router.start();
-
-      // Если юзер уже авторизован, можно сразу отправить на messenger
-      if (isAuth && window.location.pathname === "/") {
-        router.go("/messenger");
-      }
-    })
-    .catch(() => {
-      LoggedInStore.setLoggedIn(false);
-      router.start();
-    });
+  (async () => {
+    try {
+      await UserController.getUser();
+    } catch (e) {
+      // handle
+    }
+    const { loggedIn } = store.getState();
+    console.log("STORE", store.getState());
+    if (loggedIn) {
+      console.log("Пользователь есть:", loggedIn);
+      // router.go("/messenger");
+    } else {
+      console.log("Пользователь НЕ авторизован");
+      // router.go("/sign-in");
+    }
+    router.start();
+  })().catch(console.error);
 });

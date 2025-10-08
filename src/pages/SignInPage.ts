@@ -1,10 +1,13 @@
 import Block from "@/framework/Block";
 // import { validateLogin, validatePassword } from "@/helpers/validation";
-import { signin } from "@/api/auth";
+// import { signin } from "@/api/auth";
 import { router } from "@/router";
 import { Form } from "@/components/Form/Form";
 import { Link } from "@/components/Link";
-import { LoggedInStore } from "@/store/loggedIn";
+// import { LoggedInStore } from "@/store/loggedIn";
+import UserController from "@/controllers/UserController";
+import { connect } from "@/hoc/connect";
+import store from "@/store";
 
 const formData = [
   {
@@ -22,29 +25,22 @@ const formData = [
 ];
 
 export class SignInPage extends Block {
-  constructor() {
+  constructor(props = {}) {
     const form: Form = new Form({
       className: "login-form",
       formRowsData: formData,
       buttonData: {
         text: "Авторизоваться",
       },
-      onSubmit: (data: { login: string; password: string }) => {
-        signin(data)
-          .then((result) => {
-            if (result.status === 200) {
-              LoggedInStore.setLoggedIn(true);
-              router.go("/messenger");
-            } else {
-              form.setProps({
-                onSubmitError: result.reason,
-              });
-            }
-          })
-          .catch((e) => {
-            this.setProps({ onSubmitError: "Ошибка сети" });
-            console.error("Ошибка signin:", e);
-          });
+      onSubmit: async (data: { login: string; password: string }) => {
+        form.setProps({ onSubmitError: "" }); // очищаем старую ошибку
+        const result = await UserController.signin(data);
+        console.log(store.getState());
+        if (result.status === 200) {
+          router.go("/messenger");
+        } else {
+          form.setProps({ onSubmitError: result.reason });
+        }
       },
     });
 
@@ -55,7 +51,7 @@ export class SignInPage extends Block {
       isRouterLink: true,
     });
 
-    super({ form, link, onSubmitError: "" });
+    super({ ...props, form, link, onSubmitError: "" });
   }
 
   override render(): string {
@@ -69,3 +65,6 @@ export class SignInPage extends Block {
       </main>`;
   }
 }
+export default connect(SignInPage, (state) => ({
+  user: state.user,
+}));
