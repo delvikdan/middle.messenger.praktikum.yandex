@@ -1,5 +1,5 @@
 import Block from "@/framework/Block";
-import { LoggedInStore } from "@/store/loggedIn";
+import store from "@/store";
 
 type BlockClass<T extends Block = Block> = new () => T;
 
@@ -92,11 +92,20 @@ export class Router {
   }
 
   private _onRoute(pathname: string) {
-    // const publicPaths = ["/", "/sign-up", "/404"];
-    // if (!LoggedInStore.isLoggedIn && !publicPaths.includes(pathname)) {
-    //   this.go("/");
-    //   return;
-    // }
+    const publicPaths = ["/", "/sign-up", "/404"];
+    const { user } = store.getState();
+
+    // Guard: только публичные страницы для неавторизованных пользователей
+    if (!user && !publicPaths.includes(pathname)) {
+      this.go("/");
+      return;
+    }
+
+    // если ЗАЛОГИНЕН И заходит на / или /sign-up, редиректим в /messenger:
+    if (user && (pathname === "/" || pathname === "/sign-up")) {
+      this.go("/messenger");
+      return;
+    }
 
     const route = this.getRoute(pathname);
     if (!route) {

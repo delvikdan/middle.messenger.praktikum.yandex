@@ -1,12 +1,5 @@
 import Block from "@/framework/Block";
-import { mockUserData } from "@/mockData";
-import { Link } from "@/components/Link";
-import { ProfileInfo } from "@/components/Profile/ProfileInfo";
-import { DisplayName } from "@/components/DisplayName";
-import { ProfileAvatarInput } from "@/components/Profile/ProfileAvatarInput";
-import { ProfileActions } from "@/components/Profile/ProfileActions";
-import { Form } from "@/components/Form/Form";
-
+import { connect } from "@/hoc/connect";
 import {
   validateEmail,
   validateLogin,
@@ -14,72 +7,27 @@ import {
   validatePassword,
   validatePhone,
 } from "@/helpers/validation";
+import { UserType } from "@/types/user";
 
-const formData = [
-  {
-    label: "Почта",
-    id: "email",
-    typeAttr: "email",
-    nameAttr: "email",
-    validateValue: validateEmail,
-    value: "pochta@yandex.ru",
-  },
-  {
-    label: "Логин",
-    id: "login",
-    typeAttr: "text",
-    nameAttr: "login",
-    validateValue: validateLogin,
-    value: "ivanivanov",
-  },
-  {
-    label: "Имя",
-    id: "first_name",
-    typeAttr: "text",
-    nameAttr: "first_name",
-    validateValue: validateName,
-    value: "Иван",
-  },
-  {
-    label: "Фамилия",
-    id: "second_name",
-    typeAttr: "text",
-    nameAttr: "second_name",
-    validateValue: validateName,
-    value: "Иванов",
-  },
-  {
-    label: "Телефон",
-    id: "phone",
-    typeAttr: "tel",
-    nameAttr: "phone",
-    validateValue: validatePhone,
-    value: "+79099673030",
-  },
-];
+import { Link } from "@/components/Link";
+import { ProfileInfo } from "@/components/Profile/ProfileInfo";
+import { DisplayName } from "@/components/DisplayName";
+import { ProfileAvatarInput } from "@/components/Profile/ProfileAvatarInput";
+import { ProfileActions } from "@/components/Profile/ProfileActions";
+import { Form } from "@/components/Form/Form";
 
-const passwordFormData = [
-  {
-    label: "Старый пароль",
-    id: "oldPassword",
-    typeAttr: "password",
-    nameAttr: "oldPassword",
-    validateValue: validatePassword,
-    value: "Qwerty123",
-  },
-  {
-    label: "Новый пароль",
-    id: "newPassword",
-    typeAttr: "password",
-    nameAttr: "newPassword",
-    validateValue: validatePassword,
-  },
-];
+class ProfilePage extends Block {
+  constructor(props: UserType) {
+    const {
+      email,
+      login,
+      first_name: firstName,
+      second_name: secondName,
+      phone,
+      avatar,
+    } = props;
 
-export class ProfilePage extends Block {
-  constructor(props = mockUserData) {
-    const { avatar, displayName }: { avatar: string; displayName: string } =
-      props;
+    const displayName = `${firstName} ${secondName}`;
 
     const returnToChat: Link = new Link({
       href: "/messenger",
@@ -107,8 +55,13 @@ export class ProfilePage extends Block {
       displayName,
       className: "profile__name",
     });
+
     const userInfo: ProfileInfo = new ProfileInfo({
-      ...props,
+      email,
+      login,
+      firstName,
+      secondName,
+      phone,
     });
     const actions: ProfileActions = new ProfileActions({
       onEditProfileClick: () => this.handleEditProfileClick(),
@@ -117,7 +70,48 @@ export class ProfilePage extends Block {
 
     const profileForm: Form = new Form({
       className: "profile-form",
-      formRowsData: formData,
+      formRowsData: [
+        {
+          label: "Почта",
+          id: "email",
+          typeAttr: "email",
+          nameAttr: "email",
+          validateValue: validateEmail,
+          value: email,
+        },
+        {
+          label: "Логин",
+          id: "login",
+          typeAttr: "text",
+          nameAttr: "login",
+          validateValue: validateLogin,
+          value: login,
+        },
+        {
+          label: "Имя",
+          id: "first_name",
+          typeAttr: "text",
+          nameAttr: "first_name",
+          validateValue: validateName,
+          value: firstName,
+        },
+        {
+          label: "Фамилия",
+          id: "second_name",
+          typeAttr: "text",
+          nameAttr: "second_name",
+          validateValue: validateName,
+          value: secondName,
+        },
+        {
+          label: "Телефон",
+          id: "phone",
+          typeAttr: "tel",
+          nameAttr: "phone",
+          validateValue: validatePhone,
+          value: phone,
+        },
+      ],
       buttonData: {
         text: "Сохранить",
       },
@@ -125,7 +119,23 @@ export class ProfilePage extends Block {
 
     const passwordForm: Form = new Form({
       className: "profile-form",
-      formRowsData: passwordFormData,
+      formRowsData: [
+        {
+          label: "Старый пароль",
+          id: "oldPassword",
+          typeAttr: "password",
+          nameAttr: "oldPassword",
+          validateValue: validatePassword,
+        },
+        {
+          label: "Новый пароль",
+          id: "newPassword",
+          typeAttr: "password",
+          nameAttr: "newPassword",
+          validateValue: validatePassword,
+        },
+      ],
+
       buttonData: {
         text: "Сохранить",
       },
@@ -191,3 +201,7 @@ export class ProfilePage extends Block {
       </div>`;
   }
 }
+
+export default connect(ProfilePage, (state) => ({
+  ...state.user,
+}));

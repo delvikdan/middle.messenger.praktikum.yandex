@@ -1,16 +1,6 @@
 import EventBus from "@/framework/EventBus";
 import { set } from "@/helpers/utils";
-
-// Определи UserType (или импортируй из нужного файла)
-export type UserType = {
-  id: number;
-  first_name: string;
-  second_name: string;
-  login: string;
-  email: string;
-  phone: string;
-  // ... другие поля пользователя
-};
+import { UserType } from "@/types/user";
 
 export enum StoreEvents {
   Updated = "updated",

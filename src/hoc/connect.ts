@@ -6,7 +6,7 @@ type BlockConstructor = new (props?: BlockProps) => Block;
 export function connect(
   Component: BlockConstructor,
   select: (state: StoreState) => Record<string, unknown> = (state) => state
-) {
+): BlockConstructor {
   return class extends Component {
     private _storeHandler: () => void;
 

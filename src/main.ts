@@ -1,25 +1,16 @@
 import "@/styles/main.scss";
 import "@/helpers/handlebarsHelpers";
 import { router } from "@/router";
-import store from "@/store";
-import UserController from "@/controllers/UserController"; // должен уметь класть user в store
+import UserController from "@/controllers/UserController";
 
 document.addEventListener("DOMContentLoaded", () => {
   (async () => {
     try {
+      // пробуем авторизоваться по куке/токену, если есть
       await UserController.getUser();
     } catch (e) {
-      // handle
+      console.log("Ошибка сервера", e);
     }
-    const { loggedIn } = store.getState();
-    console.log("STORE", store.getState());
-    if (loggedIn) {
-      console.log("Пользователь есть:", loggedIn);
-      // router.go("/messenger");
-    } else {
-      console.log("Пользователь НЕ авторизован");
-      // router.go("/sign-in");
-    }
-    router.start();
+    router.start(); // запускаем роутер
   })().catch(console.error);
 });

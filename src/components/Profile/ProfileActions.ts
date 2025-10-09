@@ -1,8 +1,7 @@
 import Block from "@/framework/Block";
 import { Link } from "@/components/Link";
-import { logout } from "@/api/auth";
 import { router } from "@/router";
-import { LoggedInStore } from "@/store/loggedIn";
+import UserController from "@/controllers/UserController";
 
 type ProfileActionsProps = {
   onEditProfileClick: () => void;
@@ -30,17 +29,16 @@ export class ProfileActions extends Block {
       isRouterLink: true,
       onClick: (e: Event) => {
         e.preventDefault();
-        logout()
+        UserController.logout()
           .then((res) => {
             if (res.status === 200) {
-              LoggedInStore.setLoggedIn(false);
               router.go("/");
             } else {
               alert("Ошибка выхода");
             }
           })
-          .catch(() => {
-            console.error("Ошибка logout:", e);
+          .catch((error) => {
+            console.error("Ошибка logout:", error);
           });
       },
     });

@@ -1,41 +1,40 @@
 import Block from "@/framework/Block";
-// import { validateLogin, validatePassword } from "@/helpers/validation";
-// import { signin } from "@/api/auth";
 import { router } from "@/router";
-import { Form } from "@/components/Form/Form";
-import { Link } from "@/components/Link";
-// import { LoggedInStore } from "@/store/loggedIn";
+import store from "@/store";
+import { SignInType } from "@/types/user";
 import UserController from "@/controllers/UserController";
 import { connect } from "@/hoc/connect";
-import store from "@/store";
 
-const formData = [
-  {
-    label: "Логин",
-    id: "login",
-    typeAttr: "text",
-    nameAttr: "login",
-  },
-  {
-    label: "Пароль",
-    id: "password",
-    typeAttr: "password",
-    nameAttr: "password",
-  },
-];
+import { Form } from "@/components/Form/Form";
+import { Link } from "@/components/Link";
 
-export class SignInPage extends Block {
-  constructor(props = {}) {
+class SignInPage extends Block {
+  constructor(props: SignInType) {
     const form: Form = new Form({
       className: "login-form",
-      formRowsData: formData,
+      formRowsData: [
+        {
+          label: "Логин",
+          id: "login",
+          typeAttr: "text",
+          nameAttr: "login",
+        },
+        {
+          label: "Пароль",
+          id: "password",
+          typeAttr: "password",
+          nameAttr: "password",
+        },
+      ],
       buttonData: {
         text: "Авторизоваться",
       },
-      onSubmit: async (data: { login: string; password: string }) => {
+      onSubmit: async (data: SignInType) => {
         form.setProps({ onSubmitError: "" }); // очищаем старую ошибку
         const result = await UserController.signin(data);
+
         console.log(store.getState());
+
         if (result.status === 200) {
           router.go("/messenger");
         } else {

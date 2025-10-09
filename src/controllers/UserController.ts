@@ -1,6 +1,7 @@
 // controllers/UserController.ts
 import * as UserAPI from "@/api/auth";
 import store from "@/store";
+import { SignInType, SignUpType } from "@/types/user";
 
 class UserController {
   public async getUser() {
@@ -17,7 +18,7 @@ class UserController {
     }
   }
 
-  public async signin(data) {
+  public async signin(data: SignInType) {
     const res = await UserAPI.signin(data);
     if (res.status === 200) {
       await this.getUser();
@@ -25,7 +26,7 @@ class UserController {
     return res;
   }
 
-  public async signup(data) {
+  public async signup(data: SignUpType) {
     const res = await UserAPI.signup(data);
     if (res.status === 200) {
       await this.getUser();
@@ -34,8 +35,10 @@ class UserController {
   }
 
   public async logout() {
-    await UserAPI.logout();
+    const res = await UserAPI.logout();
     store.set("user", null);
+    store.set("loggedIn", false);
+    return res;
   }
 }
 

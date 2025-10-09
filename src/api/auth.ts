@@ -1,21 +1,8 @@
 import { HTTPTransport } from "@/framework/HTTPTransport";
+import { SignInType, SignUpType } from "@/types/user";
 
 const API_URL = "https://ya-praktikum.tech/api/v2";
 const http = new HTTPTransport();
-
-export type UserData = {
-  first_name: string;
-  second_name: string;
-  login: string;
-  email: string;
-  password: string;
-  phone: string;
-};
-
-export type SigninData = {
-  login: string;
-  password: string;
-};
 
 const authRequest = <T extends object>(endpoint: string, data: T) => {
   return http
@@ -41,11 +28,11 @@ const authRequest = <T extends object>(endpoint: string, data: T) => {
 };
 
 // Для регистрации
-export const signup = (data: UserData) => {
+export const signup = (data: SignUpType) => {
   return authRequest("signup", data);
 };
 // Для авторизации
-export const signin = (data: SigninData) => {
+export const signin = (data: SignInType) => {
   return authRequest("signin", data);
 };
 
