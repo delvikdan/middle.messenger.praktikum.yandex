@@ -29,6 +29,16 @@ export const validateLogin = (value: string): string | null => {
 // First name, second name
 export const validateName = (value: string): string | null => {
   if (!value) {
+    return "Введите имя";
+  }
+  if (!/^([A-Z][a-z-]*|[А-ЯЁ][а-яё-]*)$/.test(value)) {
+    return "Только буквы и дефис, первая буква заглавная";
+  }
+  return null;
+};
+
+export const validateSecondName = (value: string): string | null => {
+  if (!value) {
     return null;
   }
   if (!/^([A-Z][a-z-]*|[А-ЯЁ][а-яё-]*)$/.test(value)) {

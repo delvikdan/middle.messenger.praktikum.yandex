@@ -3,85 +3,82 @@ import {
   validateLogin,
   validatePassword,
   validateName,
+  validateSecondName,
   validateEmail,
   validatePhone,
 } from "@/helpers/validation";
-import { signup, UserData } from "@/api/auth";
+import { router } from "@/router";
+import { SignUpType } from "@/types/user";
+import { connect } from "@/hoc/connect";
+import UserController from "@/controllers/UserController";
+import store from "@/store";
+
 import { Form } from "@/components/Form/Form";
 import { Link } from "@/components/Link";
-import { router } from "@/router";
-import { LoggedInStore } from "@/store/loggedIn";
 
-const formData = [
-  {
-    label: "Почта",
-    id: "email",
-    typeAttr: "email",
-    nameAttr: "email",
-    validateValue: validateEmail,
-  },
-  {
-    label: "Логин",
-    id: "login",
-    typeAttr: "text",
-    nameAttr: "login",
-    validateValue: validateLogin,
-  },
-  {
-    label: "Имя",
-    id: "first_name",
-    typeAttr: "text",
-    nameAttr: "first_name",
-    validateValue: validateName,
-  },
-  {
-    label: "Фамилия",
-    id: "second_name",
-    typeAttr: "text",
-    nameAttr: "second_name",
-    validateValue: validateName,
-  },
-  {
-    label: "Телефон",
-    id: "phone",
-    typeAttr: "tel",
-    nameAttr: "phone",
-    validateValue: validatePhone,
-  },
-  {
-    label: "Пароль",
-    id: "password",
-    typeAttr: "password",
-    nameAttr: "password",
-    validateValue: validatePassword,
-  },
-];
-
-export class SignUpPage extends Block {
-  constructor() {
+class SignUpPage extends Block {
+  constructor(props: SignUpType) {
     const form: Form = new Form({
       className: "login-form",
-      formRowsData: formData,
+      formRowsData: [
+        {
+          label: "Почта",
+          id: "email",
+          typeAttr: "email",
+          nameAttr: "email",
+          validateValue: validateEmail,
+        },
+        {
+          label: "Логин",
+          id: "login",
+          typeAttr: "text",
+          nameAttr: "login",
+          validateValue: validateLogin,
+        },
+        {
+          label: "Имя",
+          id: "first_name",
+          typeAttr: "text",
+          nameAttr: "first_name",
+          validateValue: validateName,
+        },
+        {
+          label: "Фамилия",
+          id: "second_name",
+          typeAttr: "text",
+          nameAttr: "second_name",
+          validateValue: validateSecondName,
+        },
+        {
+          label: "Телефон",
+          id: "phone",
+          typeAttr: "tel",
+          nameAttr: "phone",
+          validateValue: validatePhone,
+        },
+        {
+          label: "Пароль",
+          id: "password",
+          typeAttr: "password",
+          nameAttr: "password",
+          validateValue: validatePassword,
+        },
+      ],
       buttonData: {
         text: "Зарегистрироваться",
       },
-      onSubmit: (data: UserData) => {
-        console.log("Данные формы авторизации:", data);
-        signup(data)
-          .then((result) => {
-            if (result.status === 200) {
-              LoggedInStore.setLoggedIn(true);
-              router.go("/messenger");
-            } else {
-              form.setProps({
-                onSubmitError: result.reason,
-              });
-            }
-          })
-          .catch((e) => {
-            this.setProps({ onSubmitError: "Ошибка сети" });
-            console.error("Ошибка signin:", e);
-          });
+
+      onSubmit: async (data: SignUpType) => {
+        form.setProps({ onSubmitError: "" });
+        const result = await UserController.signup(data);
+
+        console.log(store.getState());
+
+        if (result.status === 200) {
+          router.go("/messenger");
+        } else {
+          form.setProps({ onSubmitError: result.reason });
+        }
       },
     });
 
@@ -92,7 +89,7 @@ export class SignUpPage extends Block {
       isRouterLink: true,
     });
 
-    super({ form, link });
+    super({ ...props, form, link, onSubmitError: "" });
   }
 
   override render(): string {
@@ -106,3 +103,7 @@ export class SignUpPage extends Block {
       </main>`;
   }
 }
+
+export default connect(SignUpPage, (state) => ({
+  user: state.user,
+}));

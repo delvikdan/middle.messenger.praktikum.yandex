@@ -1,5 +1,5 @@
-export { SignInPage } from "@/pages/SignInPage";
-export { SignUpPage } from "@/pages/SignUpPage";
+export { default as SignInPage } from "@/pages/SignInPage";
+export { default as SignUpPage } from "@/pages/SignUpPage";
 export { ChatPage } from "@/pages/ChatPage";
-export { ProfilePage } from "@/pages/ProfilePage";
+export { default as ProfilePage } from "@/pages/ProfilePage";
 export { ErrorPage } from "@/pages/ErrorPage";

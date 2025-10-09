@@ -6,7 +6,7 @@ export type FormProps = {
   className: string;
   formRowsData: FormRowProps[];
   buttonData: ButtonProps;
-  onSubmit?: (data: Record<string, string>) => void;
+  onSubmit?: (data: Record<string, string>) => void | Promise<void>;
   onSubmitError?: string;
 };
 
@@ -14,7 +14,7 @@ type FormBlockProps = {
   formClass: string;
   formRows: FormRow[];
   button: Button;
-  onSubmit?: (data: Record<string, string>) => void;
+  onSubmit?: (data: Record<string, string>) => void | Promise<void>;
   onSubmitError?: string;
 };
 
@@ -65,7 +65,7 @@ export class Form extends Block<FormBlockProps> {
       });
       console.log("[VALIDATED FORM VALUES]", data);
       if (this.props.onSubmit) {
-        this.props.onSubmit(data);
+        void this.props.onSubmit(data);
       }
     }
   }
