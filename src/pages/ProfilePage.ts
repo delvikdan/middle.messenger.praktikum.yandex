@@ -12,7 +12,7 @@ import { UserType } from "@/types/user";
 import { Link } from "@/components/Link";
 import { ProfileInfo } from "@/components/Profile/ProfileInfo";
 import { DisplayName } from "@/components/DisplayName";
-import { ProfileAvatarInput } from "@/components/Profile/ProfileAvatarInput";
+import ProfileAvatarInput from "@/components/Profile/ProfileAvatarInput";
 import { ProfileActions } from "@/components/Profile/ProfileActions";
 import { Form } from "@/components/Form/Form";
 
@@ -43,7 +43,7 @@ class ProfilePage extends Block {
       isRouterLink: true,
     });
 
-    const avatarInput: ProfileAvatarInput = new ProfileAvatarInput({
+    const avatarInput: typeof ProfileAvatarInput = new ProfileAvatarInput({
       avatar,
       displayName,
       id: "avatar-input",
@@ -165,6 +165,21 @@ class ProfilePage extends Block {
       formMode: "password",
     });
   };
+
+  override componentDidUpdate(oldProps: UserType, newProps: UserType): boolean {
+    if (oldProps.avatar !== newProps.avatar) {
+      this.children.avatarInput = new ProfileAvatarInput({
+        avatar: newProps.avatar,
+        displayName: `${newProps.first_name} ${newProps.second_name}`,
+        id: "avatar-input",
+        typeAttr: "file",
+        nameAttr: "avatar",
+        hidden: true,
+      });
+      this.render();
+    }
+    return true;
+  }
 
   override render(): string {
     return `
