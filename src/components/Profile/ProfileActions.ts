@@ -23,10 +23,9 @@ export class ProfileActions extends Block {
     });
 
     const signOutLink: Link = new Link({
-      href: "/",
+      href: "#",
       text: "Выйти",
       className: "link link--red",
-      isRouterLink: true,
       onClick: (e: Event) => {
         e.preventDefault();
         UserController.logout()
