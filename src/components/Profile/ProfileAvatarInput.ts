@@ -1,5 +1,4 @@
 import Block from "@/framework/Block";
-import { connect } from "@/hoc/connect";
 import { Avatar, type AvatarProps } from "@/components/Avatar";
 import { Input, type InputProps } from "@/components/Input";
 import UserController from "@/controllers/UserController";
@@ -38,11 +37,8 @@ export class ProfileAvatarInput extends Block {
       .then((success) => {
         if (success) {
           console.log("STORE AFTER AVATAR UPLOAD", store.getState());
-          // Можно показать всплывающее уведомление "Аватар обновлён"
         } else {
-          // Можно показать ошибку
           alert("Ошибка загрузки аватара");
-          console.log("STORE AFTER AVATAR UPLOAD", store.getState());
         }
       })
       .catch((err) => {
@@ -63,7 +59,7 @@ export class ProfileAvatarInput extends Block {
   }
 }
 
-export default connect(ProfileAvatarInput, (state) => ({
-  avatar: state.user?.avatar,
-  displayName: state.user?.display_name || state.user?.first_name || "",
-}));
+// export default connect(ProfileAvatarInput, (state) => ({
+//   avatar: state.user?.avatar,
+//   displayName: state.user?.display_name || state.user?.first_name || "",
+// }));

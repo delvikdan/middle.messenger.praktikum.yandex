@@ -22,3 +22,8 @@ export type UserType = {
   avatar: string;
   email: string;
 };
+
+export type PasswordType = {
+  oldPassword: string;
+  newPassword: string;
+};

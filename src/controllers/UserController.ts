@@ -2,7 +2,7 @@
 import * as AuthAPI from "@/api/auth";
 import * as UserAPI from "@/api/user";
 import store from "@/store";
-import { SignInType, SignUpType } from "@/types/user";
+import { PasswordType, SignInType, SignUpType } from "@/types/user";
 
 class UserController {
   // Auth
@@ -60,6 +60,22 @@ class UserController {
     } catch (e) {
       return false;
     }
+  }
+
+  public async changeProfile(data: SignUpType) {
+    const res = await UserAPI.changeProfile(data);
+    if (res.status === 200) {
+      await this.getUser();
+    }
+    return res;
+  }
+
+  public async changePassword(data: PasswordType) {
+    const res = await UserAPI.changePassword(data);
+    if (res.status === 200) {
+      await this.getUser();
+    }
+    return res;
   }
 }
 

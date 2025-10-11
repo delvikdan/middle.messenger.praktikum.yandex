@@ -112,6 +112,12 @@
   }
 
   &__submit {
+    flex-direction: column-reverse;
     @include centered;
+  }
+
+  &__submit-error {
+    padding: 1rem 0;
+    color: $color-tertiary;
   }
 }

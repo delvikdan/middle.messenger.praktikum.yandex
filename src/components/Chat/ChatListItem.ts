@@ -1,6 +1,6 @@
 import Block from "@/framework/Block";
 import { Avatar } from "@/components/Avatar";
-import { DisplayName } from "@/components/DisplayName";
+import DisplayName from "@/components/DisplayName";
 
 export type ChatListItemProps = {
   avatar: string;

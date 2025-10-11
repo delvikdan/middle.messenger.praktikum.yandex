@@ -5,7 +5,6 @@ const authRequest = <T extends object>(endpoint: string, data: T) => {
   return http
     .post(`${API_URL}/auth/${endpoint}`, {
       headers: { "Content-Type": "application/json" },
-
       data: JSON.stringify(data),
     })
     .then((xhr: XMLHttpRequest) => {

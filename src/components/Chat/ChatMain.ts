@@ -1,7 +1,7 @@
 import Block from "@/framework/Block";
 import { mockChatSelected } from "@/mockData";
 import { Avatar } from "@/components/Avatar";
-import { DisplayName } from "@/components/DisplayName";
+import DisplayName from "@/components/DisplayName";
 import { Button } from "@/components/Button";
 import { ChatHistory } from "@/components/Chat/ChatHistory";
 import { ChatInput } from "@/components/Chat/ChatInput";

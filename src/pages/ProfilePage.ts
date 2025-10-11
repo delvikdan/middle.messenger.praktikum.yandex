@@ -7,14 +7,16 @@ import {
   validatePassword,
   validatePhone,
 } from "@/helpers/validation";
-import { UserType } from "@/types/user";
+import { PasswordType, SignUpType, UserType } from "@/types/user";
+import UserController from "@/controllers/UserController";
 
+import DisplayName from "@/components/DisplayName";
 import { Link } from "@/components/Link";
 import { ProfileInfo } from "@/components/Profile/ProfileInfo";
-import { DisplayName } from "@/components/DisplayName";
-import ProfileAvatarInput from "@/components/Profile/ProfileAvatarInput";
+import { ProfileAvatarInput } from "@/components/Profile/ProfileAvatarInput";
 import { ProfileActions } from "@/components/Profile/ProfileActions";
 import { Form } from "@/components/Form/Form";
+import { router } from "@/router";
 
 class ProfilePage extends Block {
   constructor(props: UserType) {
@@ -43,15 +45,16 @@ class ProfilePage extends Block {
       isRouterLink: true,
     });
 
-    const avatarInput: typeof ProfileAvatarInput = new ProfileAvatarInput({
+    const avatarInput: ProfileAvatarInput = new ProfileAvatarInput({
       avatar,
       displayName,
-      id: "avatar-input",
       typeAttr: "file",
+      id: "avatar-input",
       nameAttr: "avatar",
       hidden: true,
     });
-    const displayNameComponent: DisplayName = new DisplayName({
+
+    const displayNameComponent: Block = new DisplayName({
       displayName,
       className: "profile__name",
     });
@@ -115,6 +118,17 @@ class ProfilePage extends Block {
       buttonData: {
         text: "Сохранить",
       },
+
+      onSubmit: async (data: SignUpType) => {
+        profileForm.setProps({ onSubmitError: "" });
+        const result = await UserController.changeProfile(data);
+
+        if (result.status === 200) {
+          router.go("/settings");
+        } else {
+          profileForm.setProps({ onSubmitError: result.reason });
+        }
+      },
     });
 
     const passwordForm: Form = new Form({
@@ -126,6 +140,7 @@ class ProfilePage extends Block {
           typeAttr: "password",
           nameAttr: "oldPassword",
           validateValue: validatePassword,
+          value: "",
         },
         {
           label: "Новый пароль",
@@ -138,6 +153,17 @@ class ProfilePage extends Block {
 
       buttonData: {
         text: "Сохранить",
+      },
+
+      onSubmit: async (data: PasswordType) => {
+        passwordForm.setProps({ onSubmitError: "" });
+        const result = await UserController.changePassword(data);
+
+        if (result.status === 200) {
+          router.go("/settings");
+        } else {
+          passwordForm.setProps({ onSubmitError: result.reason });
+        }
       },
     });
 
