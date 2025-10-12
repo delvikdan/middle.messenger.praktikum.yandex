@@ -1,5 +1,7 @@
 import Block from "@/framework/Block";
 import { validateMessage } from "@/helpers/validation";
+import store from "@/store";
+
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 
@@ -20,6 +22,7 @@ export class ChatInput extends Block {
         event.preventDefault();
         event.stopPropagation();
         this.sendMessage();
+        console.log(store.getState());
       },
     });
 

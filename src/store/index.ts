@@ -1,5 +1,6 @@
 import EventBus from "@/framework/EventBus";
 import { set } from "@/helpers/utils";
+import { ChatType } from "@/types/chat";
 import { UserType } from "@/types/user";
 
 export enum StoreEvents {
@@ -9,6 +10,7 @@ export enum StoreEvents {
 export type StoreState = {
   user?: UserType | null;
   loggedIn?: boolean;
+  chats?: ChatType[];
   // Можно добавить другие поля, например:
   // isLoading?: boolean;
   // chatList?: ChatType[];

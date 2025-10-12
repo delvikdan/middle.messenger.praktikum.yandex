@@ -3,6 +3,7 @@ import { router } from "@/router";
 import store from "@/store";
 import { SignInType } from "@/types/user";
 import UserController from "@/controllers/UserController";
+import ChatController from "@/controllers/ChatController";
 import { connect } from "@/hoc/connect";
 
 import { Form } from "@/components/Form/Form";
@@ -36,6 +37,7 @@ class SignInPage extends Block {
         console.log(store.getState());
 
         if (result.status === 200) {
+          await ChatController.getChats();
           router.go("/messenger");
         } else {
           form.setProps({ onSubmitError: result.reason });

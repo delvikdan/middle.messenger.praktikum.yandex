@@ -40,6 +40,7 @@ class UserController {
     const res = await AuthAPI.logout();
     store.set("user", null);
     store.set("loggedIn", false);
+    store.set("chats", []);
     return res;
   }
 

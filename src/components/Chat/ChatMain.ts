@@ -21,7 +21,7 @@ export class ChatMain extends Block {
       messages: ChatMessageProps[];
     } = props;
     const avatarComponent: Avatar = new Avatar({ avatar, displayName });
-    const displayNameComponent: DisplayName = new DisplayName({
+    const displayNameComponent = new DisplayName({
       className: "chat-main__name",
       displayName,
     });

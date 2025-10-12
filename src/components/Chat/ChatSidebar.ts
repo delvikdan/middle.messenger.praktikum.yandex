@@ -1,7 +1,7 @@
 import Block from "@/framework/Block";
 import { Link } from "@/components/Link";
 import { Input } from "@/components/Input";
-import { ChatList } from "@/components/Chat/ChatList";
+import ChatList from "@/components/Chat/ChatList";
 
 export class ChatSidebar extends Block {
   constructor() {
@@ -20,7 +20,7 @@ export class ChatSidebar extends Block {
       placeholder: "Поиск",
     });
 
-    const chatList: ChatList = new ChatList();
+    const chatList = new ChatList();
 
     super({ link, searhInput, chatList });
   }

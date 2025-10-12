@@ -1,29 +1,39 @@
 import Block from "@/framework/Block";
 import { Avatar } from "@/components/Avatar";
-import DisplayName from "@/components/DisplayName";
+
+// {
+//     id: number;
+//     title: string;
+//     avatar: string;
+//     unread_count: number;
+//     created_by: number;
+//     last_message: {
+//         user: UserType;
+//         time: string;
+//         content: string;
+//     };
+// }
 
 export type ChatListItemProps = {
+  title: string;
   avatar: string;
-  displayName: string;
-  latestMessage: string;
-  latestMessageDate: string;
-  unreadCount?: string;
+  unreadCount: number;
+  latestMessageContent?: string;
+  latestMessageTime?: string;
+  latestMessageAuthor?: string;
   selected?: boolean;
 };
 
 export class ChatListItem extends Block {
   constructor(props: ChatListItemProps) {
-    const { avatar, displayName } = props;
+    const { avatar, title } = props;
 
     const avatarComponent: Avatar = new Avatar({
       avatar,
-      displayName,
+      displayName: title,
     });
-    const displayNameComponent: DisplayName = new DisplayName({
-      displayName,
-      className: "chat-list__name",
-    });
-    super({ ...props, avatarComponent, displayNameComponent });
+
+    super({ ...props, avatarComponent });
   }
 
   override render(): string {
@@ -37,14 +47,14 @@ export class ChatListItem extends Block {
           </div>
           <div class="chat-list__content">
             <div class="chat-list__row">
-              {{{displayNameComponent}}}
-              <div class="chat-list__date">{{{latestMessageDate}}}</div>
+              <h2 class="chat-list__name heading-secondary">{{title}}</h2>
+              <div class="chat-list__date">{{latestMessageTime}}</div>
             </div>
             <div class="chat-list__row">
-              <div class="chat-list__latest">{{{latestMessage}}}</div>
+              <div class="chat-list__latest">{{latestMessageAuthor}}: {{latestMessageContent}}</div>
               <div class="chat-list__unread">
                 {{#if unreadCount}}
-                    <span>{{{unreadCount}}}</span>
+                    <span>{{unreadCount}}</span>
                 {{/if}}
               </div>
             </div>

@@ -15,6 +15,7 @@ import store from "@/store";
 
 import { Form } from "@/components/Form/Form";
 import { Link } from "@/components/Link";
+import ChatController from "@/controllers/ChatController";
 
 class SignUpPage extends Block {
   constructor(props: SignUpType) {
@@ -75,6 +76,7 @@ class SignUpPage extends Block {
         console.log(store.getState());
 
         if (result.status === 200) {
+          await ChatController.getChats();
           router.go("/messenger");
         } else {
           form.setProps({ onSubmitError: result.reason });
