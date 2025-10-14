@@ -103,7 +103,6 @@ class ProfilePage extends Block {
           id: "second_name",
           typeAttr: "text",
           nameAttr: "second_name",
-          validateValue: validateName,
           value: secondName,
         },
         {

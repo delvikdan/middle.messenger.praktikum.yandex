@@ -2,6 +2,7 @@ import Block from "@/framework/Block";
 import { Link } from "@/components/Link";
 import { Input } from "@/components/Input";
 import ChatList from "@/components/Chat/ChatList";
+import { Button } from "../Button";
 
 export class ChatSidebar extends Block {
   constructor() {
@@ -12,17 +13,40 @@ export class ChatSidebar extends Block {
       className: "link link-profile link--grey",
     });
 
-    const searhInput: Input = new Input({
-      id: "search",
+    const chatNameInput: Input = new Input({
+      id: "nchat",
       typeAttr: "text",
-      nameAttr: "search",
-      className: "chat-sidebar__search-input",
-      placeholder: "Поиск",
+      nameAttr: "nchat",
+      className: "chat-sidebar__add-chat-input",
+      placeholder: "Введите название",
+    });
+
+    const createChatBtn: Button = new Button({
+      text: "Создать чат",
+      className: "btn-text",
+    });
+
+    const addChatAction: Link = new Link({
+      href: "#",
+      text: "Добавить",
+      className: "link",
+    });
+    const cancelAddingChatAction: Link = new Link({
+      href: "#",
+      text: "Отмена",
+      className: "link link--red",
     });
 
     const chatList = new ChatList();
 
-    super({ link, searhInput, chatList });
+    super({
+      link,
+      chatNameInput,
+      chatList,
+      createChatBtn,
+      addChatAction,
+      cancelAddingChatAction,
+    });
   }
 
   override render(): string {
@@ -35,9 +59,27 @@ export class ChatSidebar extends Block {
         </div>
       </div>
 
-      <div class="chat-sidebar__search">
-        {{{searhInput}}}
+      <div class="chat-sidebar__add-chat">
+
+        {{{createChatBtn}}}
+        
+
+        <div class="chat-sidebar__add-chat-wrapper">
+          {{{chatNameInput}}}
+          <ul class="actions">
+            <li class="actions__item">
+              {{{addChatAction}}}
+            </li>
+            <li class="actions__item">
+             {{{cancelAddingChatAction}}}
+            </li>
+          </ul>
+        </div>
+
       </div>
+
+  
+
       <nav class="chat-sidebar__navigation">
          {{{chatList}}}
 
