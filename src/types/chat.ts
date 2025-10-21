@@ -12,3 +12,12 @@ export type ChatType = {
     content: string;
   };
 };
+
+export type WSMessage = {
+  user_id: number;
+  content: string;
+  time: string;
+  user: object;
+  type?: string;
+  is_read?: boolean;
+};

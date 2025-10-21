@@ -94,8 +94,6 @@ export default abstract class Block<Props extends BlockProps = BlockProps> {
   }
 
   protected componentDidUpdate(_oldProps: Props, _newProps: Props): boolean {
-    // console.log("_oldProps", _oldProps);
-    // console.log("_newProps", _oldProps);
     void _oldProps;
     void _newProps;
     return true;
@@ -115,7 +113,12 @@ export default abstract class Block<Props extends BlockProps = BlockProps> {
         if (value instanceof Block) {
           children[key] = value;
         } else if (Array.isArray(value)) {
-          lists[key] = value;
+          // 👇 Вот тут различаем массивы Block'ов и примитивов
+          if (value.length > 0 && value.every((v) => v instanceof Block)) {
+            lists[key] = value;
+          } else {
+            props[key] = value;
+          }
         } else {
           props[key] = value;
         }
@@ -141,6 +144,10 @@ export default abstract class Block<Props extends BlockProps = BlockProps> {
         this._element.setAttribute(key, value);
       }
     });
+  }
+
+  public getId(): number {
+    return this._id;
   }
 
   public setProps = (nextProps: Partial<Props>): void => {

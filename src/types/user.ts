@@ -27,3 +27,13 @@ export type PasswordType = {
   oldPassword: string;
   newPassword: string;
 };
+
+export type ChatUserType = {
+  avatar: string;
+  display_name: string;
+  first_name: string;
+  id: number;
+  login: string;
+  role: string;
+  second_name: string;
+};

@@ -1,5 +1,5 @@
 import Block from "@/framework/Block";
-import store from "@/store";
+import store from "@/store/store";
 
 type BlockClass<T extends Block = Block> = new () => T;
 

@@ -75,7 +75,7 @@ input:focus::placeholder {
   display: flex;
   max-width: 128rem;
   margin: 3rem auto;
-  box-shadow: 0px 0px 6px 0px rgba($color-black, 0.14);
+  box-shadow: $card-shadow;
   height: calc(100vh - 7rem);
   overflow-y: auto;
 }

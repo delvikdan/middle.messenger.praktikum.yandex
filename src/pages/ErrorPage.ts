@@ -1,4 +1,5 @@
 import Block from "@/framework/Block";
+
 import { Error } from "@/components/Error";
 
 export type ErrorPageProps = {

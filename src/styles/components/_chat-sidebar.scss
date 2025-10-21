@@ -1,7 +1,7 @@
 @use "../abstracts" as *;
 
 .chat-sidebar {
-  max-width: 31rem;
+  width: 31rem;
   background-color: $color-grey-light-3;
 
   &__header {
@@ -37,12 +37,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 2.3rem;
   }
 
   &__add-chat-wrapper {
     width: calc(100% - 2rem);
     padding: 1rem;
     text-align: center;
-    box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
+    box-shadow: $modal-shadow;
+    max-width: 27rem;
+    background-color: $color-white;
   }
 }

@@ -1,8 +1,7 @@
-// controllers/UserController.ts
 import * as AuthAPI from "@/api/auth";
 import * as UserAPI from "@/api/user";
-import store from "@/store";
-import { PasswordType, SignInType, SignUpType } from "@/types/user";
+import store from "@/store/store";
+import { PasswordType, SignInType, SignUpType, UserType } from "@/types/user";
 
 class UserController {
   // Auth
@@ -38,9 +37,8 @@ class UserController {
 
   public async logout() {
     const res = await AuthAPI.logout();
-    store.set("user", null);
-    store.set("loggedIn", false);
-    store.set("chats", []);
+    store.reset();
+    localStorage.removeItem("activeChat");
     return res;
   }
 
@@ -48,17 +46,15 @@ class UserController {
   public async changeAvatar(form: FormData) {
     try {
       const res = await UserAPI.changeAvatar(form);
-      console.log("AVATAR", res);
       if (res.status === 200) {
-        // Успешно — обновляем store.user
-        await this.getUser(); // обновит store с новым аватаром
+        await this.getUser();
         return true;
       } else {
-        // Ошибка
         const resp = res.response || res.responseText;
         throw new Error(resp);
       }
     } catch (e) {
+      console.error(e);
       return false;
     }
   }
@@ -76,6 +72,22 @@ class UserController {
     if (res.status === 200) {
       await this.getUser();
     }
+    return res;
+  }
+
+  public async findUser(login: string) {
+    const sanitizedLogin = login.trim().toLowerCase();
+    const res = await UserAPI.findUser({ login });
+
+    if (res.status === 200) {
+      return res.users
+        .filter((user: UserType) => {
+          const userLogin = user.login.trim().toLowerCase();
+          return userLogin === sanitizedLogin;
+        })
+        .map((user: UserType) => user.id);
+    }
+
     return res;
   }
 }

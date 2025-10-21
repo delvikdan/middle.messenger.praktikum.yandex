@@ -1,6 +1,5 @@
 import Block from "@/framework/Block";
 import { router } from "@/router";
-import store from "@/store";
 import { SignInType } from "@/types/user";
 import UserController from "@/controllers/UserController";
 import ChatController from "@/controllers/ChatController";
@@ -31,10 +30,8 @@ class SignInPage extends Block {
         text: "Авторизоваться",
       },
       onSubmit: async (data: SignInType) => {
-        form.setProps({ onSubmitError: "" }); // очищаем старую ошибку
+        form.setProps({ onSubmitError: "" });
         const result = await UserController.signin(data);
-
-        console.log(store.getState());
 
         if (result.status === 200) {
           await ChatController.getChats();

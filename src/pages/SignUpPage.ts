@@ -11,11 +11,10 @@ import { router } from "@/router";
 import { SignUpType } from "@/types/user";
 import { connect } from "@/hoc/connect";
 import UserController from "@/controllers/UserController";
-import store from "@/store";
+import ChatController from "@/controllers/ChatController";
 
 import { Form } from "@/components/Form/Form";
 import { Link } from "@/components/Link";
-import ChatController from "@/controllers/ChatController";
 
 class SignUpPage extends Block {
   constructor(props: SignUpType) {
@@ -72,8 +71,6 @@ class SignUpPage extends Block {
       onSubmit: async (data: SignUpType) => {
         form.setProps({ onSubmitError: "" });
         const result = await UserController.signup(data);
-
-        console.log(store.getState());
 
         if (result.status === 200) {
           await ChatController.getChats();

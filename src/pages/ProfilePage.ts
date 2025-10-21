@@ -10,10 +10,10 @@ import {
 import { PasswordType, SignUpType, UserType } from "@/types/user";
 import UserController from "@/controllers/UserController";
 
-import DisplayName from "@/components/DisplayName";
+import { Title } from "@/components/Title";
 import { Link } from "@/components/Link";
 import { ProfileInfo } from "@/components/Profile/ProfileInfo";
-import { ProfileAvatarInput } from "@/components/Profile/ProfileAvatarInput";
+import { AvatarUploader } from "@/components/AvatarUploader";
 import { ProfileActions } from "@/components/Profile/ProfileActions";
 import { Form } from "@/components/Form/Form";
 import { router } from "@/router";
@@ -45,18 +45,15 @@ class ProfilePage extends Block {
       isRouterLink: true,
     });
 
-    const avatarInput: ProfileAvatarInput = new ProfileAvatarInput({
+    const userAvatarUploader: AvatarUploader = new AvatarUploader({
       avatar,
-      displayName,
-      typeAttr: "file",
-      id: "avatar-input",
-      nameAttr: "avatar",
-      hidden: true,
+      altText: displayName,
+      onUpload: (formData) => UserController.changeAvatar(formData),
     });
 
-    const displayNameComponent: Block = new DisplayName({
-      displayName,
+    const userDisplayName: Block = new Title({
       className: "profile__name",
+      title: displayName,
     });
 
     const userInfo: ProfileInfo = new ProfileInfo({
@@ -170,8 +167,8 @@ class ProfilePage extends Block {
       formMode: "none",
       returnToProfile,
       returnToChat,
-      avatarInput,
-      displayNameComponent,
+      userAvatarUploader,
+      userDisplayName,
       actions,
       userInfo,
       profileForm,
@@ -193,13 +190,8 @@ class ProfilePage extends Block {
 
   override componentDidUpdate(oldProps: UserType, newProps: UserType): boolean {
     if (oldProps.avatar !== newProps.avatar) {
-      this.children.avatarInput = new ProfileAvatarInput({
+      this.children.userAvatarUploader.setProps({
         avatar: newProps.avatar,
-        displayName: `${newProps.first_name} ${newProps.second_name}`,
-        id: "avatar-input",
-        typeAttr: "file",
-        nameAttr: "avatar",
-        hidden: true,
       });
       this.render();
     }
@@ -218,8 +210,8 @@ class ProfilePage extends Block {
         </aside>
         <main class="profile">
           <section class="profile__header">
-             {{{avatarInput}}}
-             {{{displayNameComponent}}}
+             {{{userAvatarUploader}}}
+             {{{userDisplayName}}}
           </section>
 
           <section class="profile__container">
