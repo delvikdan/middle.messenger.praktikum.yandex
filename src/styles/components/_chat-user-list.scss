@@ -1,0 +1,44 @@
+@use "../abstracts" as *;
+
+.chat-user-list {
+  margin-bottom: 2.1rem;
+  width: 100%;
+  overflow-y: auto;
+  max-height: 31rem;
+
+  &__item {
+    border-bottom: $separator;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 20rem;
+  }
+
+  &__name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__avatar {
+    width: 4rem;
+    height: 4rem;
+    background-color: $color-grey-light-2;
+    border-radius: 50%;
+  }
+  &__delete {
+    color: $color-tertiary;
+    font-size: 1.1rem;
+  }
+}

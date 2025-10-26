@@ -1,12 +1,5 @@
 import Block from "@/framework/Block";
-import { mockUserData } from "@/mockData";
-import { Link } from "@/components/Link";
-import { ProfileInfo } from "@/components/Profile/ProfileInfo";
-import { DisplayName } from "@/components/DisplayName";
-import { ProfileAvatarInput } from "@/components/Profile/ProfileAvatarInput";
-import { ProfileActions } from "@/components/Profile/ProfileActions";
-import { Form } from "@/components/Form/Form";
-
+import { connect } from "@/hoc/connect";
 import {
   validateEmail,
   validateLogin,
@@ -14,92 +7,61 @@ import {
   validatePassword,
   validatePhone,
 } from "@/helpers/validation";
+import { PasswordType, SignUpType, UserType } from "@/types/user";
+import UserController from "@/controllers/UserController";
 
-const formData = [
-  {
-    label: "Почта",
-    id: "email",
-    typeAttr: "email",
-    nameAttr: "email",
-    validateValue: validateEmail,
-    value: "pochta@yandex.ru",
-  },
-  {
-    label: "Логин",
-    id: "login",
-    typeAttr: "text",
-    nameAttr: "login",
-    validateValue: validateLogin,
-    value: "ivanivanov",
-  },
-  {
-    label: "Имя",
-    id: "first_name",
-    typeAttr: "text",
-    nameAttr: "first_name",
-    validateValue: validateName,
-    value: "Иван",
-  },
-  {
-    label: "Фамилия",
-    id: "second_name",
-    typeAttr: "text",
-    nameAttr: "second_name",
-    validateValue: validateName,
-    value: "Иванов",
-  },
-  {
-    label: "Телефон",
-    id: "phone",
-    typeAttr: "tel",
-    nameAttr: "phone",
-    validateValue: validatePhone,
-    value: "+79099673030",
-  },
-];
+import { Title } from "@/components/Title";
+import { Link } from "@/components/Link";
+import { ProfileInfo } from "@/components/Profile/ProfileInfo";
+import { AvatarUploader } from "@/components/AvatarUploader";
+import { ProfileActions } from "@/components/Profile/ProfileActions";
+import { Form } from "@/components/Form/Form";
+import { router } from "@/router";
 
-const passwordFormData = [
-  {
-    label: "Старый пароль",
-    id: "oldPassword",
-    typeAttr: "password",
-    nameAttr: "oldPassword",
-    validateValue: validatePassword,
-    value: "Qwerty123",
-  },
-  {
-    label: "Новый пароль",
-    id: "newPassword",
-    typeAttr: "password",
-    nameAttr: "newPassword",
-    validateValue: validatePassword,
-  },
-];
+class ProfilePage extends Block {
+  constructor(props: UserType) {
+    const {
+      email,
+      login,
+      first_name: firstName,
+      second_name: secondName,
+      phone,
+      avatar,
+    } = props;
 
-export class ProfilePage extends Block {
-  constructor(props = mockUserData) {
-    const { avatar, displayName }: { avatar: string; displayName: string } =
-      props;
-    const returnLink: Link = new Link({
-      href: "#",
+    const displayName = `${firstName} ${secondName}`;
+
+    const returnToChat: Link = new Link({
+      href: "/messenger",
       text: "назад",
       className: "link navigation-bar__link btn-arrow",
-      datapage: "profile",
+      isRouterLink: true,
     });
-    const avatarInput: ProfileAvatarInput = new ProfileAvatarInput({
+
+    const returnToProfile: Link = new Link({
+      href: "/settings",
+      text: "назад",
+      className: "link navigation-bar__link btn-arrow",
+      isRouterLink: true,
+    });
+
+    const userAvatarUploader: AvatarUploader = new AvatarUploader({
       avatar,
-      displayName,
-      id: "avatar-input",
-      typeAttr: "file",
-      nameAttr: "avatar",
-      hidden: true,
+      altText: displayName,
+      onUpload: (formData) => UserController.changeAvatar(formData),
     });
-    const displayNameComponent: DisplayName = new DisplayName({
-      displayName,
+
+    const userDisplayName: Block = new Title({
       className: "profile__name",
+      title: displayName,
     });
+
     const userInfo: ProfileInfo = new ProfileInfo({
-      ...props,
+      email,
+      login,
+      firstName,
+      secondName,
+      phone,
     });
     const actions: ProfileActions = new ProfileActions({
       onEditProfileClick: () => this.handleEditProfileClick(),
@@ -108,25 +70,105 @@ export class ProfilePage extends Block {
 
     const profileForm: Form = new Form({
       className: "profile-form",
-      formRowsData: formData,
+      formRowsData: [
+        {
+          label: "Почта",
+          id: "email",
+          typeAttr: "email",
+          nameAttr: "email",
+          validateValue: validateEmail,
+          value: email,
+        },
+        {
+          label: "Логин",
+          id: "login",
+          typeAttr: "text",
+          nameAttr: "login",
+          validateValue: validateLogin,
+          value: login,
+        },
+        {
+          label: "Имя",
+          id: "first_name",
+          typeAttr: "text",
+          nameAttr: "first_name",
+          validateValue: validateName,
+          value: firstName,
+        },
+        {
+          label: "Фамилия",
+          id: "second_name",
+          typeAttr: "text",
+          nameAttr: "second_name",
+          value: secondName,
+        },
+        {
+          label: "Телефон",
+          id: "phone",
+          typeAttr: "tel",
+          nameAttr: "phone",
+          validateValue: validatePhone,
+          value: phone,
+        },
+      ],
       buttonData: {
         text: "Сохранить",
+      },
+
+      onSubmit: async (data: SignUpType) => {
+        profileForm.setProps({ onSubmitError: "" });
+        const result = await UserController.changeProfile(data);
+
+        if (result.status === 200) {
+          router.go("/settings");
+        } else {
+          profileForm.setProps({ onSubmitError: result.reason });
+        }
       },
     });
 
     const passwordForm: Form = new Form({
       className: "profile-form",
-      formRowsData: passwordFormData,
+      formRowsData: [
+        {
+          label: "Старый пароль",
+          id: "oldPassword",
+          typeAttr: "password",
+          nameAttr: "oldPassword",
+          validateValue: validatePassword,
+          value: "",
+        },
+        {
+          label: "Новый пароль",
+          id: "newPassword",
+          typeAttr: "password",
+          nameAttr: "newPassword",
+          validateValue: validatePassword,
+        },
+      ],
+
       buttonData: {
         text: "Сохранить",
+      },
+
+      onSubmit: async (data: PasswordType) => {
+        passwordForm.setProps({ onSubmitError: "" });
+        const result = await UserController.changePassword(data);
+
+        if (result.status === 200) {
+          router.go("/settings");
+        } else {
+          passwordForm.setProps({ onSubmitError: result.reason });
+        }
       },
     });
 
     super({
       formMode: "none",
-      returnLink,
-      avatarInput,
-      displayNameComponent,
+      returnToProfile,
+      returnToChat,
+      userAvatarUploader,
+      userDisplayName,
       actions,
       userInfo,
       profileForm,
@@ -146,16 +188,30 @@ export class ProfilePage extends Block {
     });
   };
 
+  override componentDidUpdate(oldProps: UserType, newProps: UserType): boolean {
+    if (oldProps.avatar !== newProps.avatar) {
+      this.children.userAvatarUploader.setProps({
+        avatar: newProps.avatar,
+      });
+      this.render();
+    }
+    return true;
+  }
+
   override render(): string {
     return `
       <div class="page-wrapper">
         <aside class="navigation-bar">
-          {{{returnLink}}}
+        {{#if (eq formMode "none")}}
+          {{{returnToChat}}}
+        {{else}}
+          {{{returnToProfile}}}
+        {{/if}}
         </aside>
         <main class="profile">
           <section class="profile__header">
-             {{{avatarInput}}}
-             {{{displayNameComponent}}}
+             {{{userAvatarUploader}}}
+             {{{userDisplayName}}}
           </section>
 
           <section class="profile__container">
@@ -177,3 +233,7 @@ export class ProfilePage extends Block {
       </div>`;
   }
 }
+
+export default connect(ProfilePage, (state) => ({
+  ...state.user,
+}));

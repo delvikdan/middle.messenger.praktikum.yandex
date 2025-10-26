@@ -3,75 +3,92 @@ import {
   validateLogin,
   validatePassword,
   validateName,
+  validateSecondName,
   validateEmail,
   validatePhone,
 } from "@/helpers/validation";
+import { router } from "@/router";
+import { SignUpType } from "@/types/user";
+import { connect } from "@/hoc/connect";
+import UserController from "@/controllers/UserController";
+import ChatController from "@/controllers/ChatController";
+
 import { Form } from "@/components/Form/Form";
 import { Link } from "@/components/Link";
 
-const formData = [
-  {
-    label: "Почта",
-    id: "email",
-    typeAttr: "email",
-    nameAttr: "email",
-    validateValue: validateEmail,
-  },
-  {
-    label: "Логин",
-    id: "login",
-    typeAttr: "text",
-    nameAttr: "login",
-    validateValue: validateLogin,
-  },
-  {
-    label: "Имя",
-    id: "first_name",
-    typeAttr: "text",
-    nameAttr: "first_name",
-    validateValue: validateName,
-  },
-  {
-    label: "Фамилия",
-    id: "second_name",
-    typeAttr: "text",
-    nameAttr: "second_name",
-    validateValue: validateName,
-  },
-  {
-    label: "Телефон",
-    id: "phone",
-    typeAttr: "tel",
-    nameAttr: "phone",
-    validateValue: validatePhone,
-  },
-  {
-    label: "Пароль",
-    id: "password",
-    typeAttr: "password",
-    nameAttr: "password",
-    validateValue: validatePassword,
-  },
-];
-
-export class SignUpPage extends Block {
-  constructor() {
+class SignUpPage extends Block {
+  constructor(props: SignUpType) {
     const form: Form = new Form({
       className: "login-form",
-      formRowsData: formData,
+      formRowsData: [
+        {
+          label: "Почта",
+          id: "email",
+          typeAttr: "email",
+          nameAttr: "email",
+          validateValue: validateEmail,
+        },
+        {
+          label: "Логин",
+          id: "login",
+          typeAttr: "text",
+          nameAttr: "login",
+          validateValue: validateLogin,
+        },
+        {
+          label: "Имя",
+          id: "first_name",
+          typeAttr: "text",
+          nameAttr: "first_name",
+          validateValue: validateName,
+        },
+        {
+          label: "Фамилия",
+          id: "second_name",
+          typeAttr: "text",
+          nameAttr: "second_name",
+          validateValue: validateSecondName,
+        },
+        {
+          label: "Телефон",
+          id: "phone",
+          typeAttr: "tel",
+          nameAttr: "phone",
+          validateValue: validatePhone,
+        },
+        {
+          label: "Пароль",
+          id: "password",
+          typeAttr: "password",
+          nameAttr: "password",
+          validateValue: validatePassword,
+        },
+      ],
       buttonData: {
         text: "Зарегистрироваться",
+      },
+
+      onSubmit: async (data: SignUpType) => {
+        form.setProps({ onSubmitError: "" });
+        const result = await UserController.signup(data);
+
+        if (result.status === 200) {
+          await ChatController.getChats();
+          router.go("/messenger");
+        } else {
+          form.setProps({ onSubmitError: result.reason });
+        }
       },
     });
 
     const link: Link = new Link({
       text: "Войти",
-      href: "#",
-      datapage: "signIn",
+      href: "/",
       className: "link link--small",
+      isRouterLink: true,
     });
 
-    super({ form, link });
+    super({ ...props, form, link, onSubmitError: "" });
   }
 
   override render(): string {
@@ -85,3 +102,7 @@ export class SignUpPage extends Block {
       </main>`;
   }
 }
+
+export default connect(SignUpPage, (state) => ({
+  user: state.user,
+}));

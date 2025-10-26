@@ -9,6 +9,7 @@ type RequestOptions = {
   headers?: Record<string, string>;
   method?: METHOD;
   timeout?: number;
+  withCredentials?: boolean;
   data?:
     | Record<string, unknown>
     | Document
@@ -45,15 +46,15 @@ export class HTTPTransport {
     return this.request(url, { ...options, method: METHOD.POST });
   };
 
-  put = (url: string, options: RequestOptions = {}) => {
+  put(url: string, options: RequestOptions = {}) {
     return this.request(url, { ...options, method: METHOD.PUT });
-  };
+  }
 
   delete = (url: string, options: RequestOptions = {}) => {
     return this.request(url, { ...options, method: METHOD.DELETE });
   };
 
-  request = (url: string, options: RequestOptions) => {
+  request = (url: string, options: RequestOptions): Promise<XMLHttpRequest> => {
     const { method, headers = {}, data, timeout = 5000 } = options;
 
     if (!method) {
@@ -71,6 +72,8 @@ export class HTTPTransport {
 
       xhr.timeout = timeout;
 
+      xhr.withCredentials = true;
+
       xhr.onload = function () {
         resolve(xhr);
       };
@@ -81,9 +84,11 @@ export class HTTPTransport {
         throw new Error("timeout");
       };
 
-      Object.keys(headers).forEach((headerName) =>
-        xhr.setRequestHeader(headerName, headers[headerName])
-      );
+      if (!(data instanceof FormData)) {
+        Object.keys(headers).forEach((headerName) =>
+          xhr.setRequestHeader(headerName, headers[headerName])
+        );
+      }
 
       if (method === METHOD.GET || !data) {
         xhr.send();

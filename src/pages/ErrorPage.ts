@@ -1,18 +1,22 @@
 import Block from "@/framework/Block";
+
 import { Error } from "@/components/Error";
 
 export type ErrorPageProps = {
   code: string;
+  status: string;
 };
 
 export class ErrorPage extends Block {
-  constructor(props: ErrorPageProps) {
+  constructor(
+    props: ErrorPageProps = { code: "404", status: "Не туда попали" }
+  ) {
     const error: Error = new Error({
       code: props.code,
-      status: "Мы уже фиксим",
-      href: "#",
+      status: props.status,
+      href: "/messenger",
       text: "Назад к чатам",
-      datapage: "chat",
+      isRouterLink: true,
     });
     super({ ...props, error });
   }

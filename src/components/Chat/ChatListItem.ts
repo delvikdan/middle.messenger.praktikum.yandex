@@ -1,29 +1,39 @@
 import Block from "@/framework/Block";
+import { connect } from "@/hoc/connect";
+
 import { Avatar } from "@/components/Avatar";
-import { DisplayName } from "@/components/DisplayName";
 
 export type ChatListItemProps = {
+  chatId: number;
+  title: string;
   avatar: string;
-  displayName: string;
-  latestMessage: string;
-  latestMessageDate: string;
-  unreadCount?: string;
+  unreadCount: number;
+  latestMessageContent?: string;
+  latestMessageTime?: string;
+  latestMessageAuthor?: string;
   selected?: boolean;
+  onClick: EventListener;
 };
 
 export class ChatListItem extends Block {
   constructor(props: ChatListItemProps) {
-    const { avatar, displayName } = props;
+    const { avatar, title } = props;
 
     const avatarComponent: Avatar = new Avatar({
       avatar,
-      displayName,
+      altText: title,
     });
-    const displayNameComponent: DisplayName = new DisplayName({
-      displayName,
-      className: "chat-list__name",
+
+    super({
+      ...props,
+      avatarComponent,
+      events: {
+        click: (e: Event): void => {
+          e.preventDefault();
+          props.onClick?.(e);
+        },
+      },
     });
-    super({ ...props, avatarComponent, displayNameComponent });
   }
 
   override render(): string {
@@ -31,21 +41,30 @@ export class ChatListItem extends Block {
       <li class="chat-list__item{{#if selected}} chat-list__item--selected{{/if}}">
         <a class="chat-list__link" href="#" role="button">
           <div class="chat-list__pic">
-            {{#if avatar}}
-              {{{avatarComponent}}}
-            {{/if}}
+            {{{avatarComponent}}}
           </div>
           <div class="chat-list__content">
             <div class="chat-list__row">
-              {{{displayNameComponent}}}
-              <div class="chat-list__date">{{{latestMessageDate}}}</div>
+              <h2 class="chat-list__name heading-secondary">{{title}}</h2>
+              <div class="chat-list__date">
+
+              {{#if latestMessageContent}}{{formatTime latestMessageTime}}{{/if}}
+    
+              </div>
             </div>
             <div class="chat-list__row">
-              <div class="chat-list__latest">{{{latestMessage}}}</div>
-              <div class="chat-list__unread">
-                {{#if unreadCount}}
-                    <span>{{{unreadCount}}}</span>
+              <div class="chat-list__latest">
+                {{#if latestMessageContent}}
+                  {{latestMessageAuthor}}: {{latestMessageContent}}
+                {{else}}
+                  Сообщений нет
                 {{/if}}
+
+              </div>
+              <div class="chat-list__unread">
+                {{#unless (eq unreadCount 0)}}
+                  <span>{{unreadCount}}</span>
+                {{/unless}}
               </div>
             </div>
           </div>
@@ -54,3 +73,7 @@ export class ChatListItem extends Block {
       </li>`;
   }
 }
+
+export default connect(ChatListItem, (state, ownProps) => ({
+  selected: state.activeChat === ownProps?.chatId,
+}));

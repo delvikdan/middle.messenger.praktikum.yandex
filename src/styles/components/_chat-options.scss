@@ -1,0 +1,55 @@
+@use "../abstracts" as *;
+
+.chat-options {
+  position: absolute;
+  top: 4.5rem;
+  right: 2rem;
+  box-shadow: $card-shadow;
+  padding: 1rem;
+  background-color: $color-white;
+  min-width: 28rem;
+  min-height: 40rem;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    font-size: 1.6rem;
+    margin-bottom: 2.1rem;
+  }
+
+  &__users-title {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+  }
+
+  &__add-user {
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: $modal-shadow;
+    background-color: $color-grey-light-3;
+    margin-bottom: 2.1rem;
+  }
+
+  &__add-user-input {
+    width: 100%;
+    background-color: $color-grey-light-2;
+    padding: 0.85rem;
+    font-size: 1.2rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    border: 1px solid $color-grey-light-1;
+  }
+
+  &__add-user-action {
+    padding: 1rem 0;
+  }
+
+  &__actions {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -9,10 +9,6 @@ export type ProfileInfoProps = {
 };
 
 export class ProfileInfo extends Block {
-  constructor(props: ProfileInfoProps) {
-    super({ ...props });
-  }
-
   override render(): string {
     return `
       <dl class="profile-info">

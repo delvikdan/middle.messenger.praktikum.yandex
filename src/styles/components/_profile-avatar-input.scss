@@ -1,12 +1,11 @@
 @use "../abstracts" as *;
 
-.userpic {
+.avatar-uploader {
   position: relative;
   width: 13rem;
   height: 13rem;
   margin-bottom: 2.1rem;
-  background: url(/images/image-placeholder.svg) $color-grey-light-2 no-repeat
-    center;
+  background-color: $color-grey-light-2;
   border-radius: 50%;
 
   &__button {

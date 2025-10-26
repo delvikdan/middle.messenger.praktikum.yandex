@@ -1,11 +1,12 @@
 import Block from "@/framework/Block";
-import { ChatMain } from "@/components/Chat/ChatMain";
-import { ChatSidebar } from "@/components/Chat/ChatSidebar";
+
+import ChatMain from "@/components/Chat/ChatMain";
+import ChatSidebar from "@/components/Chat/ChatSidebar";
 
 export class ChatPage extends Block {
   constructor() {
-    const sidebar: ChatSidebar = new ChatSidebar();
-    const main: ChatMain = new ChatMain();
+    const sidebar = new ChatSidebar();
+    const main = new ChatMain();
 
     super({ sidebar, main });
   }

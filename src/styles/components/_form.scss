@@ -59,6 +59,11 @@
     justify-content: center;
     align-items: center;
   }
+
+  &__submit-error {
+    padding: 1rem 0;
+    color: $color-tertiary;
+  }
 }
 
 .profile-form {
@@ -75,7 +80,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 3.3rem;
+      height: 3.2rem;
       flex-direction: row-reverse;
     }
 
@@ -107,6 +112,12 @@
   }
 
   &__submit {
+    flex-direction: column-reverse;
     @include centered;
+  }
+
+  &__submit-error {
+    padding: 1rem 0;
+    color: $color-tertiary;
   }
 }

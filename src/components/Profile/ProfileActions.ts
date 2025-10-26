@@ -1,4 +1,7 @@
 import Block from "@/framework/Block";
+import { router } from "@/router";
+import UserController from "@/controllers/UserController";
+
 import { Link } from "@/components/Link";
 
 type ProfileActionsProps = {
@@ -22,9 +25,22 @@ export class ProfileActions extends Block {
 
     const signOutLink: Link = new Link({
       href: "#",
-      datapage: "signIn",
       text: "Выйти",
       className: "link link--red",
+      onClick: (e: Event) => {
+        e.preventDefault();
+        UserController.logout()
+          .then((res) => {
+            if (res.status === 200) {
+              router.go("/");
+            } else {
+              alert("Ошибка выхода");
+            }
+          })
+          .catch((error) => {
+            console.error("Ошибка logout:", error);
+          });
+      },
     });
 
     super({

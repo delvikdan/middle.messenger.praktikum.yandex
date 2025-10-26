@@ -1,43 +1,55 @@
 import Block from "@/framework/Block";
-import { validateLogin, validatePassword } from "@/helpers/validation";
+import { router } from "@/router";
+import { SignInType } from "@/types/user";
+import UserController from "@/controllers/UserController";
+import ChatController from "@/controllers/ChatController";
+import { connect } from "@/hoc/connect";
+
 import { Form } from "@/components/Form/Form";
 import { Link } from "@/components/Link";
 
-const formData = [
-  {
-    label: "Логин",
-    id: "login",
-    typeAttr: "text",
-    nameAttr: "login",
-    validateValue: validateLogin,
-  },
-  {
-    label: "Пароль",
-    id: "password",
-    typeAttr: "password",
-    nameAttr: "password",
-    validateValue: validatePassword,
-  },
-];
-
-export class SignInPage extends Block {
-  constructor() {
+class SignInPage extends Block {
+  constructor(props: SignInType) {
     const form: Form = new Form({
       className: "login-form",
-      formRowsData: formData,
+      formRowsData: [
+        {
+          label: "Логин",
+          id: "login",
+          typeAttr: "text",
+          nameAttr: "login",
+        },
+        {
+          label: "Пароль",
+          id: "password",
+          typeAttr: "password",
+          nameAttr: "password",
+        },
+      ],
       buttonData: {
         text: "Авторизоваться",
+      },
+      onSubmit: async (data: SignInType) => {
+        form.setProps({ onSubmitError: "" });
+        const result = await UserController.signin(data);
+
+        if (result.status === 200) {
+          await ChatController.getChats();
+          router.go("/messenger");
+        } else {
+          form.setProps({ onSubmitError: result.reason });
+        }
       },
     });
 
     const link: Link = new Link({
       text: "Нет аккаунта?",
-      href: "#",
-      datapage: "signUp",
+      href: "/sign-up",
       className: "link link--small",
+      isRouterLink: true,
     });
 
-    super({ form, link });
+    super({ ...props, form, link, onSubmitError: "" });
   }
 
   override render(): string {
@@ -51,3 +63,6 @@ export class SignInPage extends Block {
       </main>`;
   }
 }
+export default connect(SignInPage, (state) => ({
+  user: state.user,
+}));
