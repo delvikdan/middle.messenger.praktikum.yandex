@@ -1,5 +1,5 @@
-import Block from "@/framework/Block";
-import store from "@/store/store";
+import Block from "../framework/Block.ts";
+import store from "../store/store.ts";
 
 type BlockClass<T extends Block = Block> = new () => T;
 
