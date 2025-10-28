@@ -1,9 +1,9 @@
-import Block from "@/framework/Block";
-import { ChatUserType } from "@/types/user";
-import ChatController from "@/controllers/ChatController";
+import Block from "../../framework/Block.ts";
+import { ChatUserType } from "../../types/user.ts";
+import ChatController from "../../controllers/ChatController.ts";
 
-import { Link } from "@/components/Link";
-import { Avatar } from "@/components/Avatar";
+import { Link } from "../Link.ts";
+import { Avatar } from "../Avatar.ts";
 
 type ChatUserListItemProps = {
   user: ChatUserType;

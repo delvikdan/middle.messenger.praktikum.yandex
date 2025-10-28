@@ -1,4 +1,4 @@
-import { WSMessage } from "@/types/chat";
+import { WSMessage } from "../types/chat.ts";
 
 export class WSTransport {
   private socket: WebSocket | null = null;

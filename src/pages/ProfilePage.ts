@@ -1,22 +1,22 @@
-import Block from "@/framework/Block";
-import { connect } from "@/hoc/connect";
+import Block from "../framework/Block.ts";
+import { connect } from "../hoc/connect.ts";
 import {
   validateEmail,
   validateLogin,
   validateName,
   validatePassword,
   validatePhone,
-} from "@/helpers/validation";
-import { PasswordType, SignUpType, UserType } from "@/types/user";
-import UserController from "@/controllers/UserController";
+} from "../helpers/validation.ts";
+import { PasswordType, SignUpType, UserType } from "../types/user.ts";
+import UserController from "../controllers/UserController.ts";
 
-import { Title } from "@/components/Title";
-import { Link } from "@/components/Link";
-import { ProfileInfo } from "@/components/Profile/ProfileInfo";
-import { AvatarUploader } from "@/components/AvatarUploader";
-import { ProfileActions } from "@/components/Profile/ProfileActions";
-import { Form } from "@/components/Form/Form";
-import { router } from "@/router";
+import { Title } from "../components/Title.ts";
+import { Link } from "../components/Link.ts";
+import { ProfileInfo } from "../components/Profile/ProfileInfo.ts";
+import { AvatarUploader } from "../components/AvatarUploader.ts";
+import { ProfileActions } from "../components/Profile/ProfileActions.ts";
+import { Form } from "../components/Form/Form.ts";
+import { router } from "../router/index.ts";
 
 class ProfilePage extends Block {
   constructor(props: UserType) {

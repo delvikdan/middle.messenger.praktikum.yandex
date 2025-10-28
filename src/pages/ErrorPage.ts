@@ -1,6 +1,6 @@
-import Block from "@/framework/Block";
+import Block from "../framework/Block.ts";
 
-import { Error } from "@/components/Error";
+import { Error } from "../components/Error.ts";
 
 export type ErrorPageProps = {
   code: string;

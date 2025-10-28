@@ -1,5 +1,5 @@
-import { API_URL, http } from "@/api/config";
-import { PasswordType, SignUpType } from "@/types/user";
+import { API_URL, http } from "./config.ts";
+import { PasswordType, SignUpType } from "../types/user.ts";
 
 const userRequest = <T extends object>(endpoint: string, data: T) => {
   return http

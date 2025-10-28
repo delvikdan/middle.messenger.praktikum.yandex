@@ -1,4 +1,4 @@
-import { UserType } from "@/types/user";
+import { UserType } from "./user.ts";
 
 export type ChatType = {
   id: number;

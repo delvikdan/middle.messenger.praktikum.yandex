@@ -1,11 +1,11 @@
-import { Router } from "@/router/Router";
+import { Router } from "./Router.ts";
 import {
   SignInPage,
   SignUpPage,
   ProfilePage,
   ChatPage,
   ErrorPage,
-} from "@/pages";
+} from "../pages/index.ts";
 
 export const router = new Router("#app");
 

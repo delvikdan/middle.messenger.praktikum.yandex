@@ -1,5 +1,5 @@
-import * as ChatAPI from "@/api/chat";
-import store from "@/store/store";
+import * as ChatAPI from "../api/chat.ts";
+import store from "../store/store.ts";
 import UserController from "./UserController";
 
 class ChatController {

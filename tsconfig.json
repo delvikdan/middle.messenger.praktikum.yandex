@@ -11,10 +11,7 @@
     "noUnusedParameters": true,
     "strictNullChecks": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "baseUrl": "."
   },
   "include": [
     "src/**/*.ts",

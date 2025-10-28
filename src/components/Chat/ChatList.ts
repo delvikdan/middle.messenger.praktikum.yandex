@@ -1,10 +1,10 @@
-import Block from "@/framework/Block";
-import { ChatType } from "@/types/chat";
-import store from "@/store/store";
-import MessagesWSController from "@/controllers/MessagesWSController";
-import ChatController from "@/controllers/ChatController";
+import Block from "../../framework/Block.ts";
+import { ChatType } from "../../types/chat.ts";
+import store from "../../store/store.ts";
+import MessagesWSController from "../../controllers/MessagesWSController.ts";
+import ChatController from "../../controllers/ChatController.ts";
 
-import ChatListItem from "@/components/Chat/ChatListItem";
+import ChatListItem from "./ChatListItem.ts";
 
 type ChatListProps = {
   chats: ChatType[];

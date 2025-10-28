@@ -1,8 +1,8 @@
-import Block from "@/framework/Block";
-import { ChatUserType } from "@/types/user";
-import isEqual from "@/helpers/isEqual";
+import Block from "../../framework/Block.ts";
+import { ChatUserType } from "../../types/user.ts";
+import isEqual from "../../helpers/isEqual.ts";
 
-import { ChatUserListItem } from "@/components/Chat/ChatUserListItem";
+import { ChatUserListItem } from "./ChatUserListItem.ts";
 
 type ChatUserListProps = {
   users: ChatUserType[];

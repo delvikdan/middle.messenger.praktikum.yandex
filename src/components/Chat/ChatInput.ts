@@ -1,9 +1,9 @@
-import Block from "@/framework/Block";
-import { validateMessage } from "@/helpers/validation";
-import MessagesWSController from "@/controllers/MessagesWSController";
+import Block from "../../framework/Block.ts";
+import { validateMessage } from "../../helpers/validation.ts";
+import MessagesWSController from "../../controllers/MessagesWSController.ts";
 
-import { Button } from "@/components/Button";
-import { Input } from "@/components/Input";
+import { Button } from "../Button.ts";
+import { Input } from "../Input.ts";
 
 export class ChatInput extends Block {
   input: Input;

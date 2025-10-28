@@ -1,12 +1,12 @@
-import Block from "@/framework/Block";
-import { router } from "@/router";
-import { SignInType } from "@/types/user";
-import UserController from "@/controllers/UserController";
-import ChatController from "@/controllers/ChatController";
-import { connect } from "@/hoc/connect";
+import Block from "../framework/Block.ts";
+import { router } from "../router/index.ts";
+import { SignInType } from "../types/user.ts";
+import UserController from "../controllers/UserController.ts";
+import ChatController from "../controllers/ChatController.ts";
+import { connect } from "../hoc/connect.ts";
 
-import { Form } from "@/components/Form/Form";
-import { Link } from "@/components/Link";
+import { Form } from "../components/Form/Form.ts";
+import { Link } from "../components/Link.ts";
 
 class SignInPage extends Block {
   constructor(props: SignInType) {
