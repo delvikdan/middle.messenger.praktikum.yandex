@@ -4,7 +4,7 @@ import { router } from "./router/Router.ts";
 import UserController from "./controllers/UserController.ts";
 import ChatController from "./controllers/ChatController.ts";
 import MessagesWSController from "./controllers/MessagesWSController.ts";
-import store from "./store/Store.ts";
+import store from "./store/store.ts";
 
 document.addEventListener("DOMContentLoaded", () => {
   registerHandlebarsHelpers();

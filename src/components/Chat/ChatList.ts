@@ -1,6 +1,6 @@
 import Block from "../../framework/Block.ts";
 import { ChatType } from "../../types/chat.ts";
-import store from "../../store/Store.ts";
+import store from "../../store/store.ts";
 import MessagesWSController from "../../controllers/MessagesWSController.ts";
 import ChatController from "../../controllers/ChatController.ts";
 

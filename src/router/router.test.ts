@@ -3,7 +3,7 @@ import sinon from "sinon";
 
 import Block from "../framework/Block.ts";
 import { Router } from "./Route.ts";
-import store from "../store/Store.ts";
+import store from "../store/store.ts";
 
 class SignInPage extends Block {
   protected render(): string {

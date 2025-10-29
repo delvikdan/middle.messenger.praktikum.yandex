@@ -1,5 +1,5 @@
 import { WSTransport } from "../framework/WSTransport.ts";
-import store from "../store/Store.ts";
+import store from "../store/store.ts";
 import ChatController from "./ChatController.ts";
 
 class MessagesWSController {

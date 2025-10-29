@@ -1,5 +1,5 @@
 import Block, { BlockProps } from "../framework/Block.ts";
-import store, { StoreEvents, StoreState } from "../store/Store.ts";
+import store, { StoreEvents, StoreState } from "../store/store.ts";
 import isEqual from "../helpers/isEqual.ts";
 
 type BlockConstructor = new (props?: BlockProps) => Block;
