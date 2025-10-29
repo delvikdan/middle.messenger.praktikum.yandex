@@ -15,11 +15,12 @@ module.exports = {
       },
     },
   ],
-  plugins: ["@typescript-eslint"],
+  plugins: ["@typescript-eslint", "chai-friendly"],
   extends: [
     "airbnb-typescript",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:chai-friendly/recommended",
     "prettier",
   ],
   env: {
@@ -31,7 +32,6 @@ module.exports = {
     "react/jsx-filename-extension": "off",
     "import/extensions": "off",
     "import/no-extraneous-dependencies": "off",
-    // "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-argument": "off",
     "@typescript-eslint/no-unsafe-return": "off",

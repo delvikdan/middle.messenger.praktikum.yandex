@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import path, { resolve } from "path";
+import { resolve } from "path";
 
 export default defineConfig({
   resolve: {},

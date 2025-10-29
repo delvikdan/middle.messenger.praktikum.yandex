@@ -7,7 +7,7 @@ import {
   validateEmail,
   validatePhone,
 } from "../helpers/validation.ts";
-import { router } from "../router/index.ts";
+import { router } from "../router/Router.ts";
 import { SignUpType } from "../types/user.ts";
 import { connect } from "../hoc/connect.ts";
 import UserController from "../controllers/UserController.ts";

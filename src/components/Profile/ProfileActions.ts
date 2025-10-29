@@ -1,5 +1,5 @@
 import Block from "../../framework/Block.ts";
-import { router } from "../../router/index.ts";
+import { router } from "../../router/Router.ts";
 import UserController from "../../controllers/UserController";
 
 import { Link } from "../Link.ts";

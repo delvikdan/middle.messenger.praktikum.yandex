@@ -16,7 +16,7 @@ import { ProfileInfo } from "../components/Profile/ProfileInfo.ts";
 import { AvatarUploader } from "../components/AvatarUploader.ts";
 import { ProfileActions } from "../components/Profile/ProfileActions.ts";
 import { Form } from "../components/Form/Form.ts";
-import { router } from "../router/index.ts";
+import { router } from "../router/Router.ts";
 
 class ProfilePage extends Block {
   constructor(props: UserType) {

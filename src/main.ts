@@ -1,10 +1,10 @@
 import "./styles/main.scss";
 import registerHandlebarsHelpers from "./helpers/handlebarsHelpers.ts";
-import { router } from "./router/index.ts";
+import { router } from "./router/Router.ts";
 import UserController from "./controllers/UserController.ts";
 import ChatController from "./controllers/ChatController.ts";
 import MessagesWSController from "./controllers/MessagesWSController.ts";
-import store from "./store/store.ts";
+import store from "./store/Store.ts";
 
 document.addEventListener("DOMContentLoaded", () => {
   registerHandlebarsHelpers();

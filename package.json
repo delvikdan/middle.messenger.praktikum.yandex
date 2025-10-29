@@ -20,12 +20,12 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "lint:style": "stylelint \"**/*.scss\"",
     "lint:style:fix": "stylelint \"**/*.scss\" --fix",
-    "test": "node --import ./register-ts-node.mjs ./node_modules/mocha/bin/mocha --config mocharc.json"
+    "test": "node --import ./register-ts-node.mjs ./node_modules/mocha/bin/mocha --config mocharc.json",
+    "prepare": "husky || true"
   },
   "devDependencies": {
     "@types/chai": "^5.2.3",
     "@types/mocha": "^10.0.10",
-    "@types/sinon-chrome": "^2.2.16",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "autoprefixer": "^10.4.21",
@@ -33,8 +33,10 @@
     "eslint": "^8.56.0",
     "eslint-config-airbnb-typescript": "^18.0.0",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-chai-friendly": "^1.1.0",
     "husky": "^9.1.7",
     "jsdom": "^27.0.1",
+    "lint-staged": "^16.2.6",
     "mocha": "^11.7.4",
     "postcss": "^8.5.6",
     "sass": "^1.91.0",
@@ -49,5 +51,13 @@
   "dependencies": {
     "express": "^5.1.0",
     "handlebars": "^4.7.8"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "npm run lint:fix"
+    ],
+    "*.scss": [
+      "npm run lint:style"
+    ]
   }
 }

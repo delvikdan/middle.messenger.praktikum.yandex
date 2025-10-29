@@ -1,5 +1,5 @@
 import Block from "../framework/Block.ts";
-import { router } from "../router/index.ts";
+import { router } from "../router/Router.ts";
 import { SignInType } from "../types/user.ts";
 import UserController from "../controllers/UserController.ts";
 import ChatController from "../controllers/ChatController.ts";

@@ -1,12 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { expect } from "chai";
 import sinon from "sinon";
 
-// Use relative imports to avoid alias complications
 import Block from "../framework/Block.ts";
-import { Router } from "./Router.ts";
-import store from "../store/store.ts";
+import { Router } from "./Route.ts";
+import store from "../store/Store.ts";
 
 class SignInPage extends Block {
   protected render(): string {
@@ -78,21 +75,21 @@ describe("Router", () => {
   });
 
   it('redirects authenticated user from "/" to "/messenger"', () => {
-    store.set("user", { id: 1 } as any);
+    store.set("user", { id: 1 } as unknown);
     router.go("/");
     expect(viewText()).to.equal("Messenger");
     expect(window.location.pathname).to.equal("/messenger");
   });
 
   it('redirects authenticated user from "/sign-up" to "/messenger"', () => {
-    store.set("user", { id: 1 } as any);
+    store.set("user", { id: 1 } as unknown);
     router.go("/sign-up");
     expect(viewText()).to.equal("Messenger");
     expect(window.location.pathname).to.equal("/messenger");
   });
 
   it('navigates to not found ("/404") for unknown routes', () => {
-    store.set("user", { id: 1 } as any);
+    store.set("user", { id: 1 } as unknown);
     router.go("/unknown");
     expect(viewText()).to.equal("NotFound");
     expect(window.location.pathname).to.equal("/404");
@@ -104,7 +101,7 @@ describe("Router", () => {
   });
 
   it("handles anchor clicks with data-router-link", () => {
-    store.set("user", { id: 1 } as any);
+    store.set("user", { id: 1 } as unknown);
     const link = document.createElement("a");
     link.setAttribute("href", "/messenger");
     link.setAttribute("data-router-link", "");
