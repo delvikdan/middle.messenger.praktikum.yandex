@@ -1,12 +1,6 @@
-// ESM setup file for Mocha test environment
-// - Sets up jsdom to emulate the browser
-// - Exposes common globals (window, document, etc.)
-// - Exposes chai's expect globally
-
 import { JSDOM } from "jsdom";
 import { expect } from "chai";
 
-// Create a minimal DOM
 const dom = new JSDOM(
   "<!doctype html><html><head></head><body></body></html>",
   {
@@ -20,7 +14,11 @@ const { document, navigator } = window;
 
 globalThis.window = window;
 globalThis.document = document;
-globalThis.navigator = navigator;
+
+Object.defineProperty(globalThis, "navigator", {
+  value: navigator,
+  configurable: true,
+});
 
 const propsToCopy = ["FormData", "Node", "HTMLElement", "XMLHttpRequest"];
 
