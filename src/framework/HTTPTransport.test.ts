@@ -23,7 +23,6 @@ class MockXMLHttpRequest {
 
   sentData: unknown = undefined;
 
-  // response fields used by code under test
   status = 200;
 
   response = "" as unknown as string;
@@ -60,14 +59,12 @@ describe("HTTPTransport", () => {
   const OriginalXHR = globalThis.XMLHttpRequest;
 
   beforeEach(() => {
-    // @ts-ignore override for tests
     globalThis.XMLHttpRequest =
       MockXMLHttpRequest as unknown as typeof XMLHttpRequest;
     MockXMLHttpRequest.instances = [];
   });
 
   afterEach(() => {
-    // @ts-ignore restore
     globalThis.XMLHttpRequest = OriginalXHR as unknown as typeof XMLHttpRequest;
   });
 
@@ -75,7 +72,7 @@ describe("HTTPTransport", () => {
     const http = new HTTPTransport();
     const p = http.get("/api/test", { data: { a: 1, b: "x y" } });
     const xhr = MockXMLHttpRequest.last();
-    // simulate response
+
     xhr.status = 200;
     xhr.responseText = "OK";
     if (xhr.onload) {
@@ -150,7 +147,7 @@ describe("HTTPTransport", () => {
     const p = http.get("/will-abort");
     const xhr = MockXMLHttpRequest.last();
     let rejected = false;
-    // trigger abort handler
+
     try {
       if (xhr.onload) {
         xhr.onabort?.(new Event("abort"));
