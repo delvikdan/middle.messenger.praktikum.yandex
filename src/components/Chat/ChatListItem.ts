@@ -1,7 +1,7 @@
-import Block from "@/framework/Block";
-import { connect } from "@/hoc/connect";
+import Block from "../../framework/Block.ts";
+import { connect } from "../../hoc/connect.ts";
 
-import { Avatar } from "@/components/Avatar";
+import { Avatar } from "../Avatar.ts";
 
 export type ChatListItemProps = {
   chatId: number;

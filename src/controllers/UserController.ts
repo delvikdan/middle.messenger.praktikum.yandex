@@ -1,7 +1,12 @@
-import * as AuthAPI from "@/api/auth";
-import * as UserAPI from "@/api/user";
-import store from "@/store/store";
-import { PasswordType, SignInType, SignUpType, UserType } from "@/types/user";
+import * as AuthAPI from "../api/auth.ts";
+import * as UserAPI from "../api/user.ts";
+import store from "../store/store.ts";
+import {
+  PasswordType,
+  SignInType,
+  SignUpType,
+  UserType,
+} from "../types/user.ts";
 
 class UserController {
   // Auth

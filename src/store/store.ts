@@ -1,8 +1,8 @@
-import EventBus from "@/framework/EventBus";
-import set from "@/helpers/set";
+import EventBus from "../framework/EventBus.ts";
+import set from "../helpers/set.ts";
 
-import { ChatType, WSMessage } from "@/types/chat";
-import { ChatUserType, UserType } from "@/types/user";
+import { ChatType, WSMessage } from "../types/chat.ts";
+import { ChatUserType, UserType } from "../types/user.ts";
 
 export enum StoreEvents {
   Updated = "updated",

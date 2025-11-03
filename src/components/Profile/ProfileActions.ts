@@ -1,8 +1,8 @@
-import Block from "@/framework/Block";
-import { router } from "@/router";
-import UserController from "@/controllers/UserController";
+import Block from "../../framework/Block.ts";
+import { router } from "../../router/Router.ts";
+import UserController from "../../controllers/UserController";
 
-import { Link } from "@/components/Link";
+import { Link } from "../Link.ts";
 
 type ProfileActionsProps = {
   onEditProfileClick: () => void;

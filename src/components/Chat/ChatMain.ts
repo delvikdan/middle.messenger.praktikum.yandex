@@ -1,14 +1,14 @@
-import Block from "@/framework/Block";
-import { connect } from "@/hoc/connect";
-import { ChatType, WSMessage } from "@/types/chat";
-import isEqual from "@/helpers/isEqual";
+import Block from "../../framework/Block.ts";
+import { connect } from "../../hoc/connect.ts";
+import { ChatType, WSMessage } from "../../types/chat.ts";
+import isEqual from "../../helpers/isEqual.ts";
 
-import { Avatar } from "@/components/Avatar";
-import { Title } from "@/components/Title";
-import { Button } from "@/components/Button";
-import { ChatHistory } from "@/components/Chat/ChatHistory";
-import { ChatInput } from "@/components/Chat/ChatInput";
-import ChatOptions from "@/components/Chat/ChatOptions";
+import { Avatar } from "../Avatar.ts";
+import { Title } from "../Title.ts";
+import { Button } from "../Button.ts";
+import { ChatHistory } from "./ChatHistory.ts";
+import { ChatInput } from "./ChatInput.ts";
+import ChatOptions from "./ChatOptions.ts";
 
 type ChatMainProps = {
   activeChatId: number;

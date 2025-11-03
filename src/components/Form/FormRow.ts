@@ -1,6 +1,6 @@
-import Block from "@/framework/Block";
+import Block from "../../framework/Block.ts";
 
-import { Input, type InputProps } from "@/components/Input";
+import { Input, type InputProps } from "../Input.ts";
 
 export type FormRowProps = InputProps & {
   className?: string;

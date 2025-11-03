@@ -1,13 +1,13 @@
-import Block from "@/framework/Block";
-import { Button } from "../Button";
-import { connect } from "@/hoc/connect";
-import ChatController from "@/controllers/ChatController";
-import { ChatType } from "@/types/chat";
-import isEqual from "@/helpers/isEqual";
+import Block from "../../framework/Block.ts";
+import { Button } from "../Button.ts";
+import { connect } from "../../hoc/connect.ts";
+import ChatController from "../../controllers/ChatController.ts";
+import { ChatType } from "../../types/chat.ts";
+import isEqual from "../../helpers/isEqual.ts";
 
-import { Input } from "@/components/Input";
-import { ChatList } from "@/components/Chat/ChatList";
-import { Link } from "@/components/Link";
+import { Input } from "../Input.ts";
+import { ChatList } from "./ChatList.ts";
+import { Link } from "../Link.ts";
 
 type ChatSidebarProps = {
   chats: ChatType[];

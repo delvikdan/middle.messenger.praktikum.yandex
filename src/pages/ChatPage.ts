@@ -1,7 +1,7 @@
-import Block from "@/framework/Block";
+import Block from "../framework/Block.ts";
 
-import ChatMain from "@/components/Chat/ChatMain";
-import ChatSidebar from "@/components/Chat/ChatSidebar";
+import ChatMain from "../components/Chat/ChatMain.ts";
+import ChatSidebar from "../components/Chat/ChatSidebar.ts";
 
 export class ChatPage extends Block {
   constructor() {

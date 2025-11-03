@@ -1,5 +1,5 @@
-import Block from "@/framework/Block";
-import { WSMessage } from "@/types/chat";
+import Block from "../../framework/Block.ts";
+import { WSMessage } from "../../types/chat.ts";
 
 type ChatHistoryProps = {
   messages: WSMessage[];

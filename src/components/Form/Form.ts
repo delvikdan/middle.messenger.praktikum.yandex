@@ -1,7 +1,7 @@
-import Block from "@/framework/Block";
+import Block from "../../framework/Block.ts";
 
-import { FormRow, type FormRowProps } from "@/components/Form/FormRow";
-import { Button, type ButtonProps } from "@/components/Button";
+import { FormRow, type FormRowProps } from "./FormRow.ts";
+import { Button, type ButtonProps } from "../Button.ts";
 
 export type FormProps = {
   className: string;

@@ -1,15 +1,15 @@
-import Block from "@/framework/Block";
-import ChatController from "@/controllers/ChatController";
-import isEqual from "@/helpers/isEqual";
-import { connect } from "@/hoc/connect";
-import { ChatUserType } from "@/types/user";
-import { ChatType } from "@/types/chat";
+import Block from "../../framework/Block.ts";
+import ChatController from "../../controllers/ChatController.ts";
+import isEqual from "../../helpers/isEqual.ts";
+import { connect } from "../../hoc/connect.ts";
+import { ChatUserType } from "../../types/user.ts";
+import { ChatType } from "../../types/chat.ts";
 
-import { AvatarUploader } from "@/components/AvatarUploader";
-import { Title } from "@/components/Title";
-import { Link } from "@/components/Link";
-import { Input } from "@/components//Input";
-import { ChatUserList } from "@/components/Chat/ChatUserList";
+import { AvatarUploader } from "../AvatarUploader.ts";
+import { Title } from "../Title.ts";
+import { Link } from "../Link.ts";
+import { Input } from "../Input.ts";
+import { ChatUserList } from "./ChatUserList.ts";
 
 type ChatOptionsProps = {
   chatId: number;

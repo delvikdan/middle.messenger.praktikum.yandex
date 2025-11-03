@@ -1,6 +1,6 @@
-import { WSTransport } from "@/framework/WSTransport";
-import store from "@/store/store";
-import ChatController from "@/controllers/ChatController";
+import { WSTransport } from "../framework/WSTransport.ts";
+import store from "../store/store.ts";
+import ChatController from "./ChatController.ts";
 
 class MessagesWSController {
   private ws: WSTransport | null = null;

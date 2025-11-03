@@ -1,8 +1,8 @@
-import Block from "@/framework/Block";
-import isEqual from "@/helpers/isEqual";
+import Block from "../framework/Block.ts";
+import isEqual from "../helpers/isEqual.ts";
 
-import { Avatar } from "@/components/Avatar";
-import { Input } from "@/components/Input";
+import { Avatar } from "./Avatar.ts";
+import { Input } from "./Input.ts";
 
 export type AvatarUploaderProps = {
   avatar: string;

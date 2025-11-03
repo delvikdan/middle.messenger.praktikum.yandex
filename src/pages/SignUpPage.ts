@@ -1,4 +1,4 @@
-import Block from "@/framework/Block";
+import Block from "../framework/Block.ts";
 import {
   validateLogin,
   validatePassword,
@@ -6,15 +6,15 @@ import {
   validateSecondName,
   validateEmail,
   validatePhone,
-} from "@/helpers/validation";
-import { router } from "@/router";
-import { SignUpType } from "@/types/user";
-import { connect } from "@/hoc/connect";
-import UserController from "@/controllers/UserController";
-import ChatController from "@/controllers/ChatController";
+} from "../helpers/validation.ts";
+import { router } from "../router/Router.ts";
+import { SignUpType } from "../types/user.ts";
+import { connect } from "../hoc/connect.ts";
+import UserController from "../controllers/UserController.ts";
+import ChatController from "../controllers/ChatController.ts";
 
-import { Form } from "@/components/Form/Form";
-import { Link } from "@/components/Link";
+import { Form } from "../components/Form/Form.ts";
+import { Link } from "../components/Link.ts";
 
 class SignUpPage extends Block {
   constructor(props: SignUpType) {

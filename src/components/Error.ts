@@ -1,5 +1,5 @@
-import Block from "@/framework/Block";
-import { Link, type LinkProps } from "@/components/Link";
+import Block from "../framework/Block.ts";
+import { Link, type LinkProps } from "./Link.ts";
 
 export type ErrorProps = LinkProps & {
   code: string;

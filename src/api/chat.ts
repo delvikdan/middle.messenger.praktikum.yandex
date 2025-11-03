@@ -1,5 +1,5 @@
-import { API_URL, http } from "@/api/config";
-import { ChatType } from "@/types/chat";
+import { API_URL, http } from "./config.ts";
+import { ChatType } from "../types/chat.ts";
 
 export const getChats = (): Promise<ChatType[]> => {
   return http.get(`${API_URL}/chats`, {}).then((xhr: XMLHttpRequest) => {

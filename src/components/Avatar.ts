@@ -1,5 +1,5 @@
-import { API_URL } from "@/api/config";
-import Block from "@/framework/Block";
+import { API_URL } from "../api/config.ts";
+import Block from "../framework/Block.ts";
 
 export type AvatarProps = {
   avatar: string;
